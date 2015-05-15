@@ -12,13 +12,16 @@ api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 dict_of_category_id = {}
 
 def get_wm_taxonomy():
-	"""This connects to WM API taxonomy and returns the total list of taxonomy information for their database."""
+	"""This connects to WM API taxonomy and returns the total list of taxonomy information for their database, then flattens it to a non nested object"""
 
-	if categoryNode:
-		r = urlopen('http://api.walmartlabs.com/v1/taxonomy?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q') 
-		taxonomy_dict = json.load(r)
-	pprint(taxonomy_dict)
+	# if categoryNode:
+	r = urlopen('http://api.walmartlabs.com/v1/taxonomy?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q') 
+	taxonomy_dict = json.load(r)
+	# pprint(taxonomy_dict)
 	return taxonomy_dict
+
+
+
 
 # def get_wm_taxonomy(categoryNode):
 # 	"""This connects to WM API taxonomy and returns the total list of taxonomy information for their database."""

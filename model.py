@@ -12,7 +12,7 @@ db = SQLAlchemy()
 
 
 
-class show_taxonomy(db.Model):
+class Taxonomy(db.Model):
 	"""          Taxonomy of Walmart Website
 
 	 For this table, I am reading through the imported JSON object 

@@ -49,9 +49,7 @@ def searchProductsMyUser():
 		"&format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q")
 
 def searchProductsasDev():
-	"""Search as categoryId"""
+	"""Search with categoryNode"""
 
 
-
-def showCategoryIds():
-	"""Search for taxonomy of category and show category Ids"""
+# Taxonomy API in script_taxonomy.py 
