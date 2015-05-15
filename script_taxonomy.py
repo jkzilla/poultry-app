@@ -16,9 +16,9 @@ def get_wm_taxonomy():
 
 	# if categoryNode:
 	r = urlopen('http://api.walmartlabs.com/v1/taxonomy?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q') 
-	taxonomy_dict = json.load(r)
+	taxonomy_dict = json.loads(r)
 	# pprint(taxonomy_dict)
-	return taxonomy_dict
+	pprint(taxonomy_dict)
 
 
 
