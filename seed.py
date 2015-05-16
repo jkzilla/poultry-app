@@ -68,5 +68,4 @@ def load_taxonomy():
 
 if __name__ == "__main__":
     connect_to_db(app)
-
     load_taxonomy()
