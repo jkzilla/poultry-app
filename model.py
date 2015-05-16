@@ -4,6 +4,8 @@ sorting through the walmart taxonomy is easier yay."""
 
 from flask_sqlalchemy import SQLAlchemy
 
+"""THIS IS GETTING A RUNTIMEERROR: APPLICATION NOT REGISTERED ON DB INSTANCE AND NO APPLICATION TO 
+CURRENT CONTEXT. SOMETHING ABOUT HOW I AM DEFINING DB?"""
 
 db = SQLAlchemy()
 # This is the connection to the SQLite database; we're getting this through
