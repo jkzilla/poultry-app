@@ -34,6 +34,8 @@ def recurse_keys(b):
 			if children:
 				for i in children:
 					recurse_keys(children)
+				else:
+					chilren == False
 		taxonomy_table_values = Taxonomy(children=children, category_node=cat_id, name=name, path=path)
 		db.session.add(taxonomy_table_values)
 		db.session.commit()
