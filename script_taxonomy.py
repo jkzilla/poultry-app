@@ -37,10 +37,10 @@ def recurse_keys(list_categories):
 			has_children = True
 			children = category['children']
 			recurse_keys(children)
-			print "yes"
+			# print "yes"
 			
 		taxonomy_table_values = Taxonomy(children=has_children, category_node=cat_id, name=name, path=path)
-		
+		# print taxonomy_table_values
 		db.session.add(taxonomy_table_values)
 
 		db.session.commit()
@@ -72,8 +72,10 @@ def recurse_keys(list_categories):
 
 
 
+
 if __name__ == '__main__':
 	from server import app
 	connect_to_db(app)
 	print "Connected to DB."
 	get_wm_taxonomy()
+
