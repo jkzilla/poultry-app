@@ -26,20 +26,20 @@ def get_wm_taxonomy():
 
 def recurse_keys(b):
     for key in b:
-		if key in b:
-			cat_id = b[0]['id']
-			name = b[0]['name']
-			path = b[0]['path']
+		# if key in b:
+		cat_id = b[0]['id']
+		# print cat_id
+		name = b[0]['name']
+		path = b[0]['path']
+		if isinstance(key, list):
 			children = b[0]['children']
-			if children:
-				for i in children:
-					recurse_keys(children)
-				else:
-					chilren == False
-		taxonomy_table_values = Taxonomy(children=children, category_node=cat_id, name=name, path=path)
+			# print children
+		taxonomy_table_values = Taxonomy(children=True, category_node=cat_id, name=name, path=path)
 		db.session.add(taxonomy_table_values)
+		if isinstance(key, list):
+			# for i in children:
+			recurse_keys(children)
 		db.session.commit()
-
 # with open('taxonomy.json') as data_file:    
 #     data = json.load(data_file)
 #     a = data['categories']
