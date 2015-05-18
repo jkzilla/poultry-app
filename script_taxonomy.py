@@ -18,27 +18,31 @@ def get_wm_taxonomy():
 
 	r = requests.get('http://api.walmartlabs.com/v1/taxonomy?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q') 
 	taxonomy_dict = r.json()
-	a = taxonomy_dict['categories']
+	list_categories = taxonomy_dict['categories']
 	# a is a list object of dictionaries
-	b = a
-	recurse_keys(b)
+	
+	recurse_keys(list_categories)
 
 
-def recurse_keys(b):
-    for key in b:
+def recurse_keys(list_categories):
+    for category in list_categories:
 		# if key in b:
-		cat_id = b[0]['id']
+		cat_id = category['id']
 		# print cat_id
-		name = b[0]['name']
-		path = b[0]['path']
-		if isinstance(key, list):
-			children = b[0]['children']
-			# print children
-		taxonomy_table_values = Taxonomy(children=True, category_node=cat_id, name=name, path=path)
-		db.session.add(taxonomy_table_values)
-		if isinstance(key, list):
-			# for i in children:
+		name = category['name']
+		path = category['path']
+		print cat_id, name, path
+		has_children = False
+		if category.get('children'):
+			has_children = True
+			children = category['children']
 			recurse_keys(children)
+			print "yes"
+			
+		taxonomy_table_values = Taxonomy(children=has_children, category_node=cat_id, name=name, path=path)
+		
+		db.session.add(taxonomy_table_values)
+
 		db.session.commit()
 # with open('taxonomy.json') as data_file:    
 #     data = json.load(data_file)
