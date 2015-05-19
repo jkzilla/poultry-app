@@ -5,7 +5,7 @@ import csv
 
 DB_URI = "http:///taxonomy.db" 
 
-print 
+
 def seed_users():
 	"""This takes the .csv user data and seeds it into my database"""
 	anything = "anything"

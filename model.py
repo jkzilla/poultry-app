@@ -48,7 +48,8 @@ class User(db.Model):
 	email = db.Column(db.String(64), nullable=False)
 	password = db.Column(db.String(64), nullable=False)
 
-
+class UserPreferences(db.Model):
+	"""These are our user preferences"""
 
 
 ##############################################################################
