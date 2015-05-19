@@ -38,7 +38,7 @@ class Taxonomy(db.Model):
 	# if children:
 		# import values
 
-class User(db.User):
+class User(db.Model):
 	"""This is our fake user database"""
 
 	__tablename__ = "users"
@@ -46,7 +46,9 @@ class User(db.User):
 	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	email = db.Column(db.String(64), nullable=False)
 	password = db.Column(db.String(64), nullable=False)
-	preferences = db.Column(db.)
+	preferences = db.Column(db.String(1000000000))
+
+
 
 
 ##############################################################################

@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 app.secret_key = "ABC"
 
-app.jinja_env.undefined = StrictUndefined
+# app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
@@ -24,18 +24,17 @@ def index():
 def login():
 	"""User writes info in login email/pw boxes and clicks submit, which directs here"""
 	email = request.form.get("email")
-    password = request.form.get("password")
+	password = request.form.get("password")
 
-    if email == User.query.get('email') and password == User.query.get('password'):
-
-        if email in browser_session:
-            browser_session['email'] = email
-            browser_session['password'] = request.form['password']
-            flash("You are now logged in")
-            redirect("/nowsearch")
-        else:
-            flash("You are not logged in")
-            redirect("/")
+	if email == User.query.get('email') and password == User.query.get('password'):
+		if email in browser_session:
+			browser_session['email'] = email
+			browser_session['password'] = request.form['password']
+			flash("You are now logged in")
+			redirect("/nowsearch")
+		else:
+			flash("You are not logged in")
+			redirect("/")
 
 @app.route('/nowsearch')
 def to_search():
@@ -55,7 +54,7 @@ def search():
 def show_results(json_results):
 	"""This shows the results of search on search page"""
 	return render_template("searchresults.html")
-	
+
 
 
 
