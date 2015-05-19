@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>this is the search page</h1>
+
+</form>
+<form action="/search">
+<br>
+<br>
+<label>Search</label><br>
+<input type="text" name="search">
+<input type="submit">
+</form>
+
+<div id="results"></div>	
+
+<script type="text/javascript">
+	// use ajax to submit form and then use js or jquery to insert results into DOM
+	$.post("/search", results)
+	$(#results).load("/searchresults.html");
+</script>
+{% endblock %}

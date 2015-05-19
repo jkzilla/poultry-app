@@ -4,10 +4,6 @@ sorting through the walmart taxonomy is easier yay."""
 
 from flask_sqlalchemy import SQLAlchemy
 
-
-"""THIS IS GETTING A RUNTIMEERROR: APPLICATION NOT REGISTERED ON DB INSTANCE AND NO APPLICATION TO 
-CURRENT CONTEXT. SOMETHING ABOUT HOW I AM DEFINING DB?"""
-
 db = SQLAlchemy()
 # This is the connection to the SQLite database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -42,8 +38,15 @@ class Taxonomy(db.Model):
 	# if children:
 		# import values
 
+class User(db.User):
+	"""This is our fake user database"""
 
+	__tablename__ = "users"
 
+	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	email = db.Column(db.String(64), nullable=False)
+	password = db.Column(db.String(64), nullable=False)
+	preferences = db.Column(db.)
 
 
 ##############################################################################

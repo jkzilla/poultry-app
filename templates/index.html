@@ -2,25 +2,22 @@
 {% block content %}
 
 <!-- body tags with ng-controller listed in base -->
+<div>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-2">
-			<!-- Sidebar content -->
+<form action="/login" method="POST">
 
-			Search: <input ng-model="query">
+<label>Sign in</label><br>
+	<label>Email</label><br>
+	<input type="text" name="email"><br>
+	<label>Password</label><br>
+	<input type="text" name="password"><br>
+	<input type="submit" value="Login"><br>
+</form>
+<form action="/register" method="POST">
 
-		</div>
-		<div class="col-md-10"></div>
-		<!-- Body content -->
-
-			<ul class="chickenProducts">
-				<li ng-repeat="chickenItem in chickenProducts | filter:query">
-				<!-- can also do <div ng-repear="(key, value) in myObj">....</div> this does not define the order of keys returned for an object https://docs.angularjs.org/api/ng/directive/ngRepeat-->
-
-				</li>
-			</ul>
-		</div>
-	</div>
+    <label>Register as a new user</label>
+    <br>
+    <input type="submit" value="Take me to registration!">
+</form>
 
 {% endblock %}
