@@ -1,4 +1,4 @@
-{% extends 'base.html'}
+{% extends 'base.html' %}
 {% block content %}
 
 <!-- body tags with ng-controller listed in base -->
@@ -17,8 +17,7 @@
 			<ul class="chickenProducts">
 				<li ng-repeat="chickenItem in chickenProducts | filter:query">
 				<!-- can also do <div ng-repear="(key, value) in myObj">....</div> this does not define the order of keys returned for an object https://docs.angularjs.org/api/ng/directive/ngRepeat-->
-					<span>{{chickenItem.name}}</span>
-					<p>{{chickenItem.snippet}}</p>
+
 				</li>
 			</ul>
 		</div>

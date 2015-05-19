@@ -9,7 +9,7 @@ describe('ChickenWatch App', function () {
 		it('should filter the chicken product list as a
 			user types into the search box', function() {
 
-			var phoneList = element.all(by.repeater('chickenItem in chickenProducts'));
+			var chickenProductList = element.all(by.repeater('chickenItem in chickenProducts'));
 			var query = element(by.model('query'));
 
 			expect(chickenProductList.
