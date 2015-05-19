@@ -11,11 +11,19 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 </head>
 <body>
+
+
+    <ul>
+        {% for message in get_flashed_messages() %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+
 	<h1>Chicken Watch</h1>
 	{% block content %}
 	stuff goes here
 	{% endblock %}
-	{{ stuff }}
+	
 
 
 	<!-- this is link to bootstrap -->

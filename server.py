@@ -5,14 +5,14 @@ from flask import Flask, render_template, redirect, request, flash, session, jso
 # as browser_session ????? 
 from flask_debugtoolbar import DebugToolbarExtension
 from script import userSearch
-from model import connect_to_db, db
-
+from model import connect_to_db, db, User
+from jinja2 import StrictUndefined
 
 app = Flask(__name__)
 
 app.secret_key = "ABC"
 
-# app.jinja_env.undefined = StrictUndefined
+app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
@@ -20,21 +20,29 @@ def index():
 
 	return render_template("index.html")
 
-@app.route('/login')
+# not working
+@app.route('/login', methods=['POST'])
 def login():
 	"""User writes info in login email/pw boxes and clicks submit, which directs here"""
 	email = request.form.get("email")
 	password = request.form.get("password")
 
+	# this needs to query the user.email object not the entire line of code
+	
 	if email == User.query.get('email') and password == User.query.get('password'):
 		if email in browser_session:
-			browser_session['email'] = email
+			browser_session['email'] = request.form['email']
 			browser_session['password'] = request.form['password']
 			flash("You are now logged in")
-			redirect("/nowsearch")
+			return redirect("/nowsearch")
 		else:
+			print "LALALALA"
 			flash("You are not logged in")
-			redirect("/")
+
+@app.route('/register')
+def send_to_regist():
+	"""Sends user to registration"""
+	return render_template("/registration.html")
 
 @app.route('/nowsearch')
 def to_search():

@@ -44,9 +44,9 @@ class User(db.Model):
 	__tablename__ = "users"
 
 	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	name = db.Column(db.String(64), nullable=False)
 	email = db.Column(db.String(64), nullable=False)
 	password = db.Column(db.String(64), nullable=False)
-	preferences = db.Column(db.String(1000000000))
 
 
 
