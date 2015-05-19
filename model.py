@@ -35,6 +35,10 @@ class Taxonomy(db.Model):
 	path = db.Column(db.String(64))
 	children = db.Column(db.Boolean)
 
+	def __repr__(self):
+		"""This is a helpful representation"""
+		return "<Taxonomy category_node=%s name=%s>" % (self.category_node, self.name)  
+
 	# if children:
 		# import values
 

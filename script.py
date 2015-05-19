@@ -1,6 +1,6 @@
 from urllib2 import urlopen
 import requests
-
+from model import Taxonomy, db
 api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 
 
@@ -15,7 +15,13 @@ def userSearch(searchTerm):
 	"""This is the function that passes the user search term to the Walmart API"""	
 	search_api = requests.get("http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q")
 	searchApi = search_api.json()
-	return searchApi
+	for items in searchApi['items']:
+		sql = db.session.query(Taxonomy).filter_by(category_node=items["categoryNode"]).one()
+		print sql
+	
+
+
+
 
 	# print body
 # Lookup API
