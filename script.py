@@ -1,6 +1,6 @@
 from urllib2 import urlopen
 import requests
-from model import Taxonomy, db
+from model import Taxonomy, connect_to_db, db
 
 api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 
