@@ -4,7 +4,7 @@
 from flask import Flask, render_template, redirect, request, flash, session, jsonify, json
 # as browser_session ????? 
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User
+from model import connect_to_db, db, User, Taxonomy
 from jinja2 import StrictUndefined
 from utils import user_search
 
@@ -43,17 +43,30 @@ def send_to_regist():
 @app.route('/search')
 def search_walmart():
 	"""This search returns Walmart API Search Items"""
-	search_wm_items = request.args.get('user_search')
-	results = userSearch(search)
+	search_wm_items = request.args.get('search')
+	results = user_search(search)
 	json_results = jsonify(results)
 	return json_results
 
 @app.route('/getresults', methods=['GET'])
-def show_results(user_query):
-	"""This shows the results of search on search page"""
-	search_items= user_search(user_query)
-	return render_template("searchresults.html")
+def show_results():
 
+	"""This shows the results of search on search page"""
+	user_query = request.args.get("search")
+	# print user_query
+
+	search_items_not_filtered_list = user_search(user_query)
+	print search_items_not_filtered_list
+	item_approved_list = []
+	for item in search_items_not_filtered_list:
+		
+		Taxonomy_obj = db.session.query(Taxonomy).filter_by(category_node=item["categoryNode"]).all()
+		for obj in Taxonomy_obj:
+			if 'Meat' in obj.name:
+				item_approved_list.append(item)
+			print obj.name
+	return render_template("searchresults.html", item_approved_list=item_approved_list)
+	# return "hello"
 
 
 

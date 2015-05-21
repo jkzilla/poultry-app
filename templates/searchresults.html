@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>These are the search results that I am placing in the search page via ajax</h1>
 
+<h1>These are the search results</h1>
+<ul>{% for item in item_approved_list %}
+	<li>{{ item.name }}</li>
 
-
+{% endfor %}
+</ul>
 {% endblock %}
