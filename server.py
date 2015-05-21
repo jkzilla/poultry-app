@@ -4,9 +4,9 @@
 from flask import Flask, render_template, redirect, request, flash, session, jsonify, json
 # as browser_session ????? 
 from flask_debugtoolbar import DebugToolbarExtension
-from script import userSearch
 from model import connect_to_db, db, User
 from jinja2 import StrictUndefined
+from utils import user_search
 
 app = Flask(__name__)
 
@@ -26,41 +26,32 @@ def login():
 	"""User writes info in login email/pw boxes and clicks submit, which directs here"""
 	email = request.form.get("email")
 	password = request.form.get("password")
-
+	user = User.query.filter_by(email=email, password=password).first()
+	if user:
 	# this needs to query the user.email object not the entire line of code
-	
-	if email == User.query.get('email') and password == User.query.get('password'):
-		if email in browser_session:
-			browser_session['email'] = request.form['email']
-			browser_session['password'] = request.form['password']
-			flash("You are now logged in")
-			return redirect("/nowsearch")
-		else:
-			print "LALALALA"
-			flash("You are not logged in")
+		flash("You are now logged in")
+		return render_template("/nowsearch.html") 
+	else:
+		flash("Invalid Login, please try again or <a href='/registration.html'>register here</a>")
 
 @app.route('/register')
 def send_to_regist():
 	"""Sends user to registration"""
 	return render_template("/registration.html")
 
-@app.route('/nowsearch')
-def to_search():
-	"""Sends to search page"""
-
-	return render_template("searchpage.html")
 
 @app.route('/search')
-def search():
+def search_walmart():
 	"""This search returns Walmart API Search Items"""
-	search = request.args.get('userSearch')
+	search_wm_items = request.args.get('user_search')
 	results = userSearch(search)
 	json_results = jsonify(results)
 	return json_results
 
-@app.route('/results')
-def show_results(json_results):
+@app.route('/getresults', methods=['GET'])
+def show_results(user_query):
 	"""This shows the results of search on search page"""
+	search_items= user_search(user_query)
 	return render_template("searchresults.html")
 
 

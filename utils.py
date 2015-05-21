@@ -1,6 +1,9 @@
 from urllib2 import urlopen
 import requests
-from model import Taxonomy, connect_to_db, db
+import json
+from pprint import pprint
+
+from model import Taxonomy, db
 
 api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 
@@ -12,7 +15,7 @@ api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 
 dict_of_product_ids = {}
 
-def userSearch(searchTerm):
+def user_search(search_term):
 	"""This is the function that passes the user search term to the Walmart API"""	
 	search_api = requests.get("http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q")
 	searchApi = search_api.json()
@@ -20,6 +23,16 @@ def userSearch(searchTerm):
 		sql = db.session.query(Taxonomy).filter_by(category_node=items["categoryNode"]).one()
 		print sql
 	
+def get_lookup(item_id):
+	"""This connects to WM API Lookup and returns the single product that matches the item id that you provide. From where? Search API!
+	How does the search API return all the products that I want that fall under the human food category Chicken (undetermined what WM calls it."""
+
+	if categoryNode:
+		r = urlopen('http://api.walmartlabs.com/v1/taxonomy?format=json&' + 'categoryId=' + categoryNode + "&" + 'apiKey=qb5mmbrawdsnnr74yqc6sn8q') 
+		taxonomy_dict = json.load(r)
+	else: 
+		print "I need a categoryNode"
+	pprint(taxonomy_dict)
 
 
 

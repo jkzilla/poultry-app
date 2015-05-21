@@ -1,3 +1,0 @@
-This is a data file containing 
-
-Wal-Mart_sites.kml
