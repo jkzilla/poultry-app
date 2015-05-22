@@ -56,17 +56,17 @@ def show_results():
 	# print user_query
 
 	search_items_not_filtered_list = user_search(user_query)
-	print search_items_not_filtered_list
 	item_approved_list = []
+
 	for item in search_items_not_filtered_list:
-		
-		Taxonomy_obj = db.session.query(Taxonomy).filter_by(category_node=item["categoryNode"]).all()
+		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
 		for obj in Taxonomy_obj:
-			if 'Meat' in obj.name:
-				item_approved_list.append(item)
-			print obj.name
+			print obj.category_node
+			if item[u'categoryNode'] == obj.category_node:
+		# if 'Meat' in obj.name:
+				item_stuff = item[u'name'], item[u'categoryPath'], item[u'salePrice'], item[u'shortDescription'], item[u'itemId'], item[u'addToCartUrl'], item[u'customerRatingImage']
+				item_approved_list.append(item_stuff)
 	return render_template("searchresults.html", item_approved_list=item_approved_list)
-	# return "hello"
 
 
 

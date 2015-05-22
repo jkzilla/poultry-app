@@ -21,7 +21,9 @@ dict_of_product_ids = {}
 def user_search(search_term):
 	"""This is the function that passes the user search term to the Walmart API"""	
 	search_api = requests.get("http://api.walmartlabs.com/v1/search?query=" + search_term + "&format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q")
+	# print "http://api.walmartlabs.com/v1/search?query=" + search_term + "&format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q"
 	searchApi = search_api.json()
+	# print searchApi['numItems']
 	search_items_not_filtered = searchApi['items']
 	return search_items_not_filtered
 	
