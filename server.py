@@ -28,17 +28,34 @@ def login():
 	password = request.form.get("password")
 	user = User.query.filter_by(email=email, password=password).first()
 	if user:
-	# this needs to query the user.email object not the entire line of code
 		flash("You are now logged in")
 		return render_template("/nowsearch.html") 
-	else:
-		flash("Invalid Login, please try again or <a href='/registration.html'>register here</a>")
+	elif ValueError:
+		flash("Invalid Login, please try again or register using the registration button below")
+		return render_template("/index.html")
 
-@app.route('/register')
+@app.route('/register', methods=['GET'])
 def send_to_regist():
 	"""Sends user to registration"""
 	return render_template("/registration.html")
+# WORKING HERE WORKING HERE WORKING HERE WORKING HERE
+@app.route('/submitregistration', methods=['POST'])
+def post_reg_info_to_db():
+	"""This saves the new user registration information in the db"""
+	
+	name = request.form.get("firstname")
+	email = request.form.get("email")
+	password = request.form.get("password")
 
+	user_table_values = User(name=name, email=email, password=password)
+	db.session.add(user_table_values)
+
+	db.session.commit()
+	
+	user = User.query.filter_by(email=email)
+	if user:
+		flash("You are now logged in")
+		return render_template("/nowsearch.html")
 
 @app.route('/search')
 def search_walmart():
@@ -63,11 +80,9 @@ def show_results():
 		for obj in Taxonomy_obj:
 			print obj.category_node
 			if item[u'categoryNode'] == obj.category_node:
-		# if 'Meat' in obj.name:
 				item_stuff = item[u'name'], item[u'categoryPath'], item[u'salePrice'], item[u'shortDescription'], item[u'itemId'], item[u'addToCartUrl'], item[u'customerRatingImage']
 				item_approved_list.append(item_stuff)
 	return render_template("searchresults.html", item_approved_list=item_approved_list)
-
 
 
 if __name__ == "__main__":

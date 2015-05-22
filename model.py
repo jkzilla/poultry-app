@@ -48,6 +48,9 @@ class User(db.Model):
 	email = db.Column(db.String(64), nullable=False)
 	password = db.Column(db.String(64), nullable=False)
 
+	def __repr__(self):
+		"""This is a helpful representation"""
+		return "<User name=%s email=%s>" % (self.name, self.email)
 # class UserPreferences(db.Model):
 # 	"""These are our user preferences"""
 
