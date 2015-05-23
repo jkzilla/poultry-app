@@ -80,9 +80,17 @@ def show_results():
 		for obj in Taxonomy_obj:
 			print obj.category_node
 			if item[u'categoryNode'] == obj.category_node:
-				item_stuff = item[u'name'], item[u'categoryPath'], item[u'salePrice'], item[u'shortDescription'], item[u'itemId'], item[u'addToCartUrl'], item[u'customerRatingImage']
+
+				item_stuff = {
+					'name': item[u'name'],
+					'category': item[u'categoryPath]',
+					'sales_price': item[u'salePrice'],
+					'description': item[u'shortDescription'],
+					'customer_rating_img': item[u'customerRatingImage']
+				}
+
 				item_approved_list.append(item_stuff)
-	return render_template("searchresults.html", item_approved_list=item_approved_list)
+	return render_template("searchresults.html", item_stuff=item_stuff_dict)
 
 
 if __name__ == "__main__":
