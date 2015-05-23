@@ -76,19 +76,23 @@ def show_results():
 	item_stuff_dict = {}
 	print item_stuff_dict
 	for item in search_items_not_filtered_list:
+		# print item THIS RETURNS AN ITEM IN THE CONSOLE
 		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
 		for obj in Taxonomy_obj:
-			print obj.category_node
+			# print item[u'categoryNode']
 			if item[u'categoryNode'] == obj.category_node:
-				item_stuff_dict.update(
-					name=item[u'name'], 
-					category=item[u'categoryPath'], 
-					sale_price=item[u'salePrice'], 
-					description=item[u'shortDescription'], 
-					customer_rating_img=item[u'customerRatingImage']
-					)
+				
+					item_stuff_dict["name"]=item[u'name'], 
+					item_stuff_dict["category"]=item[u'categoryPath'], 
+					item_stuff_dict["sale_price"]=item[u'salePrice'], 
+					item_stuff_dict["description"]=item[u'shortDescription'], 
+					item_stuff_dict["customer_rating_img"]=item[u'customerRatingImage']
+					
+# ONLY RETURNING ONE DICT OBJECT >_<
+	return render_template("searchresults.html", item_stuff_dict=item_stuff_dict)
 
-	return render_template("searchresults.html", item_stuff=item_stuff_dict)
+#make a route with the lookup api
+
 
 
 if __name__ == "__main__":
