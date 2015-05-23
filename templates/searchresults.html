@@ -2,10 +2,9 @@
 {% block content %}
 
 <h1>These are the search results</h1>
-<ul>{% for item in item_approved_list %}
-	
-	<li>{{ item }}</li>
 
-{% endfor %}
-</ul>
-{% endblock %}
+	{{ item_stuff }}
+ <!-- 	#make a route with the lookup api
+ --><!-- 	<li><a href="/product?id={{ item['id'] }}">{{ item['name'] }}</li>
+
+ -->{% endblock %}
