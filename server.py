@@ -74,12 +74,12 @@ def show_results():
 	item_stuff_dict = {}
 	i = 0
 	# name = item_stuff_dict[item[u'name']]
-	print item_stuff_dict
+	# print item_stuff_dict
 	for item in search_items_not_filtered_list:
 		# search_items_not_filtered_list is a list of dicts 
 		# print type(item) ==> this is dict
 		# print type(search_items_not_filtered_list) this is a list
-		print item[u'categoryNode']
+		# print item[u'categoryNode']
 		# print item[u'categoryNode'] => this prints a categoryNode in the terminal
 		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
 		# print type(Taxonomy_obj) this is a list 
@@ -108,8 +108,14 @@ def show_results():
 def lookup_api():
 	find_product = request.args.get("itemId");
 	print find_product
+
 	return 'hi'
 
+@app.route('/get_brand_names', methods=['GET'])
+def get_brand_names():
+	Taxonomy_node = db.session.query(Taxonomy).all()
+	print Taxonomy_node
+	return 'Taxonomy_node'
 
 if __name__ == "__main__":
 
