@@ -2,7 +2,6 @@
 # from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify, json
-# as browser_session ????? 
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Taxonomy
 from jinja2 import StrictUndefined
@@ -20,7 +19,6 @@ def index():
 
 	return render_template("index.html")
 
-# not working
 @app.route('/login', methods=['POST'])
 def login():
 	"""User writes info in login email/pw boxes and clicks submit, which directs here"""
@@ -38,7 +36,7 @@ def login():
 def send_to_regist():
 	"""Sends user to registration"""
 	return render_template("/registration.html")
-# WORKING HERE WORKING HERE WORKING HERE WORKING HERE
+
 @app.route('/submitregistration', methods=['POST'])
 def post_reg_info_to_db():
 	"""This saves the new user registration information in the db"""
@@ -68,31 +66,46 @@ def search_walmart():
 @app.route('/getresults', methods=['GET'])
 def show_results():
 
-	"""This shows the results of search on search page"""
+	"""This shows the results of search on search page. Working here May 24th. """
 	user_query = request.args.get("search")
 	# print user_query
 
 	search_items_not_filtered_list = user_search(user_query)
 	item_stuff_dict = {}
+	i = 0
+	# name = item_stuff_dict[item[u'name']]
 	print item_stuff_dict
 	for item in search_items_not_filtered_list:
-		# print item THIS RETURNS AN ITEM IN THE CONSOLE
+		# search_items_not_filtered_list is a list of dicts 
+		# print type(item) ==> this is dict
+		# print type(search_items_not_filtered_list) this is a list
+		print item[u'categoryNode']
+		# print item[u'categoryNode'] => this prints a categoryNode in the terminal
 		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
+		# print type(Taxonomy_obj) this is a list 
 		for obj in Taxonomy_obj:
-			# print item[u'categoryNode']
+			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
+			# print item[u'shortDescription']
+			# print item_stuff_dictd[item[u'name']] 
 			if item[u'categoryNode'] == obj.category_node:
-				
-					item_stuff_dict["name"]=item[u'name'], 
-					item_stuff_dict["category"]=item[u'categoryPath'], 
-					item_stuff_dict["sale_price"]=item[u'salePrice'], 
-					item_stuff_dict["description"]=item[u'shortDescription'], 
-					item_stuff_dict["customer_rating_img"]=item[u'customerRatingImage']
+				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
+				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
+				item_stuff_dict['item_'+str(i)] = {
+					"name": item.get(u'name', ""), 
+					"category": item.get(u'categoryPath', ""), 
+					"sale_price": item.get(u'salePrice', ""), 
+					"description": item.get(u'shortDescription', ""), 
+					# when I run server.py I receive a KeyError: u'ShortDescription'
+					"customer_rating_img": item.get(u'customerRatingImage', "")
+					}
+				i+=1
 					
-# ONLY RETURNING ONE DICT OBJECT >_<
 	return render_template("searchresults.html", item_stuff_dict=item_stuff_dict)
 
 #make a route with the lookup api
-
+# @app.route('lookup_api' methods=['GET'])
+# def lookup_api:
+# 	find_product = request.args.get("")
 
 
 if __name__ == "__main__":

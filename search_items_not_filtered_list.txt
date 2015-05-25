@@ -1,0 +1,24 @@
+[
+{
+u'marketplace': False, 
+u'numReviews': 14, 
+u'productUrl': u'http://c.affil.walmart.com/t/api02?l=http%3A%2F%2Fwww.walmart.com%2Fip%2FGreat-Value-Chunk-Chicken-Breast-12.5-oz-2-count%2F39098615%3Faffp1%3DMvlwOaA7IyG38rrq2IrsAGeX7wzYOwndQviOKvLy2i8%26affilsrc%3Dapi%26veh%3Daff%26wmlspartner%3Dreadonlyapi', 
+u'customerRatingImage': u'http://i2.walmartimages.com/i/CustRating/4_6.gif', 
+u'addToCartUrl': u'http://c.affil.walmart.com/t/api02?l=http%3A%2F%2Fwww.walmart.com%2Fcatalog%2Fselect_product.gsp%3Fproduct_id%3D39098615%26add_to_cart%3D1%26qty%3D1%26affp1%3DMvlwOaA7IyG38rrq2IrsAGeX7wzYOwndQviOKvLy2i8%26affilsrc%3Dapi%26veh%3Daff%26wmlspartner%3Dreadonlyapi', 
+u'shortDescription': u'&lt;p&gt;This 2-count pack of Great Value Chunk Chicken Breast is ideal for quick and easy meal options. It is packaged fully cooked and can be eaten alone or added to salads, sandwiches or casseroles. Each chicken breast container is 98 percent fat free and a wonderful source of protein. It contains chicken breast with rib meat and is packaged in water. The gluten-free chicken breast is packaged under the Great Value brand name, which ensures that you will be satisfied with the taste and quality of the product.&lt;/p&gt;', 
+u'customerRating': u'4.571', 
+u'modelNumber': u'7067', 
+u'productTrackingUrl': u'http://linksynergy.walmart.com/fs-bin/click?id=|LSNID|&offerid=223073.7200&type=14&catid=8&subid=0&hid=7200&tmpid=1082&RD_PARM1=http%253A%252F%252Fwww.walmart.com%252Fip%252FGreat-Value-Chunk-Chicken-Breast-12.5-oz-2-count%252F39098615%253Faffp1%253DMvlwOaA7IyG38rrq2IrsAGeX7wzYOwndQviOKvLy2i8%2526affilsrc%253Dapi', 
+u'categoryNode': u'976759_976796_1001442', 
+u'parentItemId': 39098615, 
+u'thumbnailImage': u'http://i.walmartimages.com/i/p/00/07/87/42/03/0007874203010_100X100.jpg', 
+u'bundle': False, 
+u'longDescription': u'&lt;b&gt;Great Value Chunk Chicken Breast:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;Fully cooked and ready to add to salads, sandwiches or casseroles&lt;/li&gt;&lt;li&gt;98% fat free&lt;/li&gt;&lt;li&gt;Gluten free&lt;/li&gt;&lt;li&gt;2-pack&lt;/li&gt;&lt;li&gt;Quick and easy meal option&lt;/li&gt;&lt;li&gt;Good source of protien&lt;/li&gt;&lt;li&gt;Two 12.5 oz cans Great Value chicken breast&lt;/li&gt;&lt;li&gt;Chicken breast with rib meat&lt;/li&gt;&lt;li&gt;Packed in water&lt;/li&gt;&lt;/ul&gt;', 
+u'standardShipRate': 4.97, 
+u'categoryPath': u'Food/Meat, Seafood & Poultry/Fish', 
+u'itemId': 39098615, 
+u'name': u'Great Value Chunk Chicken Breast, 12.5 oz, 2 count', 
+u'upc': u'078742030104', u'affiliateAddToCartUrl': u'http://linksynergy.walmart.com/fs-bin/click?id=|LSNID|&offerid=223073.7200&type=14&catid=8&subid=0&hid=7200&tmpid=1082&RD_PARM1=http%253A%252F%252Fwww.walmart.com%252Fcatalog%252Fselect_product.gsp%253Fproduct_id%253D39098615%2526add_to_cart%253D1%2526qty%253D1%2526affp1%253DMvlwOaA7IyG38rrq2IrsAGeX7wzYOwndQviOKvLy2i8%2526affilsrc%253Dapi', 
+u'salePrice': 3.98, 
+u'availableOnline': True
+}

@@ -3,5 +3,11 @@
 
 <h1>These are the search results</h1>
 
-	{{ item_stuff_dict }}
+<form action="/lookup_api" method="POST">
+
+<ul> {% for key, value in item_stuff_dict.items() %}
+	<li>{{ value }}</li>
+	{% endfor %}
+</ul>
+
 {% endblock %}
