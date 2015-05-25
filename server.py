@@ -92,6 +92,7 @@ def show_results():
 				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
 				item_stuff_dict['item_'+str(i)] = {
 					"name": item.get(u'name', ""), 
+					"item_id": item.get(u'itemId', ""),
 					"category": item.get(u'categoryPath', ""), 
 					"sale_price": item.get(u'salePrice', ""), 
 					"description": item.get(u'shortDescription', ""), 
@@ -103,9 +104,11 @@ def show_results():
 	return render_template("searchresults.html", item_stuff_dict=item_stuff_dict)
 
 #make a route with the lookup api
-# @app.route('lookup_api' methods=['GET'])
-# def lookup_api:
-# 	find_product = request.args.get("")
+@app.route('/lookup_api', methods=['GET'])
+def lookup_api():
+	find_product = request.args.get("itemId");
+	print find_product
+	return 'hi'
 
 
 if __name__ == "__main__":

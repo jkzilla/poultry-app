@@ -3,11 +3,23 @@
 
 <h1>These are the search results</h1>
 
-<form action="/lookup_api" method="POST">
 
 <ul> {% for key, value in item_stuff_dict.items() %}
-	<li>{{ value }}</li>
+	<li class="clickable_item" data-id="{{ value['item_id'] }}">{{ value }}</li>
 	{% endfor %}
 </ul>
 
+
+
+<script>
+$('.clickable_item').click(function() {
+	var id = $(this).attr('data-id');
+	$.get('/lookup_api', {itemId:id}, function(){
+		console.log('hi');
+	});
+});
+
+
+</script>
 {% endblock %}
+<!-- create a clickable obj out of value, which send the  --> 
