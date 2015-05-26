@@ -6,6 +6,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Taxonomy
 from jinja2 import StrictUndefined
 from utils import user_search
+import requests
+
 
 app = Flask(__name__)
 
@@ -113,8 +115,14 @@ def lookup_api():
 
 @app.route('/get_brand_names', methods=['GET'])
 def get_brand_names():
-	Taxonomy_node = db.session.query(Taxonomy).all()
-	print Taxonomy_node
+	Taxonomy_all = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).all()
+	for taxonomy_item in Taxonomy_all:
+		cat_id = taxonomy_item.category_node
+		print cat_id
+		print 'http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id
+		r = requests.get('http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id)
+		data_feed = r.json()
+		print data_feed 
 	return 'Taxonomy_node'
 
 if __name__ == "__main__":
