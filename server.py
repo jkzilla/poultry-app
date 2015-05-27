@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify, json
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User, Taxonomy
+from model import connect_to_db, db, User, Taxonomy, Brand
 from jinja2 import StrictUndefined
 from utils import user_search
 import requests
@@ -99,20 +99,31 @@ def show_results():
 					"sale_price": item.get(u'salePrice', ""), 
 					"description": item.get(u'shortDescription', ""), 
 					# when I run server.py I receive a KeyError: u'ShortDescription'
-					"customer_rating_img": item.get(u'customerRatingImage', "")
+					"customer_rating_img": item.get(u'customerRatingImage', ""),
+					"thumbnail_image": item.get(u'thumbnailImage', "")
 					})
 		
 	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
 	# [{'price': 2.50, 'color': 'red'}]			
 	return render_template("searchresults.html", found=found)
 
-#make a route with the lookup api
-@app.route('/lookup_api', methods=['GET'])
-def lookup_api():
-	find_product = request.args.get("itemId");
-	print find_product
+#make a route with the lookup api. This route takes the item[item_id] from searchresults.html, and passes it
+# to the lookup ap
+@app.route('/brand-detail/<item_id>', methods=['GET'])
+def lookup_api(item_id):
+	# get item id from HTTP address
+	print item_id
+	# passes item id to lookup api
+	product_wm_api = requests.get('http://api.walmartlabs.com/v1/items/' + item_id + '?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q')
+	# creates json object
+	product_info = product_wm_api.json()
+	# returns brandName of product info in json object
+	item_brand = product_info['brandName']
+	print product_info['brandName']
+	# takes brandName, accesses 'brands' table 
+	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand)
 
-	return 'hi'
+	return render_template('/brand-detail/'+ item_id, brand_info=brand_info)
 
 @app.route('/get_brand_names', methods=['GET'])
 def get_brand_names():
@@ -134,7 +145,7 @@ def get_brand_names():
 def conventional_info():
 	return render_template("/conventional.html")
 
-	
+
 if __name__ == "__main__":
 
 	app.debug = True

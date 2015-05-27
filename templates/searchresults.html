@@ -5,7 +5,7 @@
 
 
 <ul> {% for item in found %}
-	<li><a href="/product-detail/{{ item['item_id'] }}">{{ item.name, item.category, item.item_id, item.sale_price, item.description, item.img }}</a></li>
+	<li><a href="/brand-detail/{{ item['item_id'] }}" action="/brand-detail">{{ item.name }} {{ item.category }} {{ item.item_id }} {{ item.sale_price }} {{ item.description }} {{ item.customer_rating_img }} {{ item.thumbnail_image }}</a></li>
 	{% endfor %}
 </ul>
 
