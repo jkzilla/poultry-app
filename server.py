@@ -73,7 +73,7 @@ def show_results():
 	# print user_query
 
 	search_items_not_filtered_list = user_search(user_query)
-	item_stuff_dict = {}
+	found = []
 	i = 0
 	# name = item_stuff_dict[item[u'name']]
 	# print item_stuff_dict
@@ -92,7 +92,7 @@ def show_results():
 			if item[u'categoryNode'] == obj.category_node:
 				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
 				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
-				item_stuff_dict['item_'+str(i)] = {
+				found.append({
 					"name": item.get(u'name', ""), 
 					"item_id": item.get(u'itemId', ""),
 					"category": item.get(u'categoryPath', ""), 
@@ -100,10 +100,11 @@ def show_results():
 					"description": item.get(u'shortDescription', ""), 
 					# when I run server.py I receive a KeyError: u'ShortDescription'
 					"customer_rating_img": item.get(u'customerRatingImage', "")
-					}
-				i+=1
-					
-	return render_template("searchresults.html", item_stuff_dict=item_stuff_dict)
+					})
+		
+	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
+	# [{'price': 2.50, 'color': 'red'}]			
+	return render_template("searchresults.html", found=found)
 
 #make a route with the lookup api
 @app.route('/lookup_api', methods=['GET'])
@@ -121,10 +122,17 @@ def get_brand_names():
 		print cat_id
 		print 'http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id
 		r = requests.get('http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id)
+		# Error with accessing datafeed api - May 26 emailed walmart
 		data_feed = r.json()
 		print data_feed 
 	return 'Taxonomy_node'
 
+
+# @app.route('/user_preference', methods=['GET'])
+
+@app.route('/conventional')
+def conventional_info():
+	return render_template("/conventional.html")
 if __name__ == "__main__":
 
 	app.debug = True

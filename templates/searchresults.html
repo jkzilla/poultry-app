@@ -4,12 +4,15 @@
 <h1>These are the search results</h1>
 
 
-<ul> {% for key, value in item_stuff_dict.items() %}
-	<li class="clickable_item" data-id="{{ value['item_id'] }}">{{ value }}</li>
+<ul> {% for item in found %}
+	<li><a href="/product-detail/{{ item['item_id'] }}">{{ item['name'] }}</a></li>
 	{% endfor %}
 </ul>
 
+<form>
+	
 
+</form>
 
 <script>
 $('.clickable_item').click(function() {

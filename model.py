@@ -51,8 +51,40 @@ class User(db.Model):
 	def __repr__(self):
 		"""This is a helpful representation"""
 		return "<User name=%s email=%s>" % (self.name, self.email)
-# class UserPreferences(db.Model):
-# 	"""These are our user preferences"""
+
+class Brand(db.Model):
+	"""This the brand database for Walmart products in the category of Food: """
+
+	__tablename__ = "brands"
+
+	brand_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	brand_name = db.Column(db.String(64), nullable=False)
+	brand_website = db.Column(db.String(64), nullable=False)
+	brand_youtube = db.Column(db.String(64))
+	brand_instagram = db.Column(db.String(64))
+	brand_twitter = db.Column(db.String(64))
+	brand_google_plus = db.Column(db.String(64))
+	brand_conventional = db.Column(db.Boolean)
+	brand_organic = db.Column(db.Boolean)
+	brand_free_range = db.Column(db.Boolean)
+	brand_pastured = db.Column(db.Boolean)
+
+
+
+class UserPreferences(db.Model):
+	"""These are our user preferences"""
+	__tablename__ = "preferences"
+
+	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	halal = db.Column(db.Boolean)
+	free_range = db.Column(db.Boolean)
+	slow_growth = db.Column(db.Boolean)
+	pastured = db.Column(db.Boolean)
+	non_gmo = db.Column
+	antibiotics = db.Column(db.Boolean)
+	organic_100 = db.Column(db.Boolean)
+	organic_95 = db.Column(db.Boolean)
+	price = db.Column(db.Boolean)
 
 
 ##############################################################################
