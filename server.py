@@ -123,7 +123,7 @@ def lookup_api(item_id):
 	# takes brandName, accesses 'brands' table 
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand)
 
-	return render_template('/brand-detail/'+ item_id, brand_info=brand_info)
+	return render_template('/brand-detail.html', brand_info=brand_info)
 
 @app.route('/get_brand_names', methods=['GET'])
 def get_brand_names():

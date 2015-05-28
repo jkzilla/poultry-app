@@ -59,15 +59,18 @@ class Brand(db.Model):
 
 	brand_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	brand_name = db.Column(db.String(64), nullable=False)
+	parent_company = db.Column(db.String(64))
 	brand_website = db.Column(db.String(64), nullable=False)
 	brand_youtube = db.Column(db.String(64))
 	brand_instagram = db.Column(db.String(64))
 	brand_twitter = db.Column(db.String(64))
+	brand_pintrest
 	brand_google_plus = db.Column(db.String(64))
 	brand_conventional = db.Column(db.Boolean)
 	brand_organic = db.Column(db.Boolean)
 	brand_free_range = db.Column(db.Boolean)
 	brand_pastured = db.Column(db.Boolean)
+	brand_slow_growth = db.Column(db.Boolean)
 
 
 
