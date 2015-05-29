@@ -1,5 +1,3 @@
-"""Models and database functions for seeding my taxonomy database so
-sorting through the walmart taxonomy is easier yay."""
 
 
 from flask_sqlalchemy import SQLAlchemy
@@ -42,7 +40,7 @@ class User(db.Model):
 	"""This is our fake user database"""
 
 	__tablename__ = "users"
-# build user profile page
+
 	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	name = db.Column(db.String(64), nullable=False)
 	email = db.Column(db.String(64), nullable=False)
@@ -54,22 +52,21 @@ class User(db.Model):
 	free_range = db.Column(db.Boolean)
 	slow_growth = db.Column(db.Boolean)
 	pastured = db.Column(db.Boolean)
-	non_gmo = db.Column
+	non_gmo = db.Column(db.Boolean)
 	antibiotics = db.Column(db.Boolean)
 	organic_100 = db.Column(db.Boolean)
 	organic_95 = db.Column(db.Boolean)
-	price = db.Column(db.Integer)	
-	preference_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-	preference1 = db.Column(db.String(64))
-	preference2 = db.Column(db.String(64))
-	preference3 = db.Column(db.String(64))
-	preference4 = db.Column(db.String(64))
-	preference5 = db.Column(db.String(64))
-	preference6 = db.Column(db.String(64))
-	preference7 = db.Column(db.String(64))
-	preference8 = db.Column(db.String(64))
-	preference9 = db.Column(db.String(64))
-	preference10 = db.Column(db.String(64))	
+	price = db.Column(db.Integer)
+	preference1 = db.Column(db.Integer)
+	preference2 = db.Column(db.Integer)
+	preference3 = db.Column(db.Integer)
+	preference4 = db.Column(db.Integer)
+	preference5 = db.Column(db.Integer)
+	preference6 = db.Column(db.Integer)
+	preference7 = db.Column(db.Integer)
+	preference8 = db.Column(db.Integer)
+	preference9 = db.Column(db.Integer)
+	preference10 = db.Column(db.Integer)	
 
 	def __repr__(self):
 		"""This is a helpful representation"""

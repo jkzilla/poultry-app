@@ -103,10 +103,22 @@ def show_results():
 					"customer_rating_img": item.get(u'customerRatingImage', ""),
 					"thumbnail_image": item.get(u'thumbnailImage', "")
 					})
+	preferences = { 
+		"preference1": "I prefer the least expensive option, always.",
+		"preference2": "I buy organic products.",
+		"preference3": "If I see a good cause, I support it.",
+		"preference4": "I trust the market to give the consumer a satisfactory product",
+		"preference5": "I have recently changed my diet and have started eating healthier.",
+		"preference6": "I live by a budget.",
+		"preference7": "I am afraid of what is sold in our grocery stores.",
+		"preference8": "I was recently promoted.",
+		"preference9": "I am buying for a celebration.",
+		"preference10": "I always pay more for quality.",
+		}
 	# print found	
 	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
 	# [{'price': 2.50, 'color': 'red'}]			
-	return render_template("searchresults.html", found=found)
+	return render_template("searchresults.html", found=found, preferences=preferences)
 
 #make a route with the lookup api. This route takes the item[item_id] from searchresults.html, and passes it
 # to the lookup ap
@@ -140,25 +152,6 @@ def get_purchase_y_n():
 @app.route('/user_input', methods=['GET'])
 def get_user_input():
 	return render_template("/nowsearch")
-
-@app.route('/conventional')
-def conventional_info():
-	return render_template("/conventional.html")
-
-
-@app.route('/organic')
-def organic_info():
-	return render_template("/organic.html")
-
-
-@app.route('/free_range')
-def free_range_info():
-	return render_template("/free_range.html")
-
-
-@app.route('/pastured')
-def pastured_info():
-	return render_template("/pastured.html")
 
 
 if __name__ == "__main__":
