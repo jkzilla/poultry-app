@@ -123,22 +123,20 @@ def lookup_api(item_id):
 	# print type(item_brand) this is a unicode object
 	# takes brandName, accesses 'brands' table 
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).all()
+# IMPORTANT IMPORTANT
+	# if brand_info returns None:
+	# 	brand_table_values = Brand(brand_name=item_brand, email=email)
+	# 	db.session.add(brand_table_values)
+	# 	db.session.commit()
 	for obj in brand_info:
 		print obj.brand_name
 	return render_template('/brand-detail.html', brand_name=obj.brand_name)
 
-# @app.route('/get_brand_names', methods=['GET'])
-# def get_brand_names():
-# 	Taxonomy_all = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).all()
-# 	for taxonomy_item in Taxonomy_all:
-# 		cat_id = taxonomy_item.category_node
-# 		print cat_id
-# 		print 'http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id
-# 		r = requests.get('http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id)
-# 		# Error with accessing datafeed api - May 26 emailed walmart
-# 		data_feed = r.json()
-# 		print data_feed 
-# 	return 'Taxonomy_node'
+@app.route('/product_approval', methods=['GET'])
+def get_purchase_y_n():
+	yes1 = request.args.get("yes1")
+	print yes1
+	return render_template("/user_input.html", purchase_decision=yes)
 
 
 @app.route('/user_input', methods=['GET'])

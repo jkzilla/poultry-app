@@ -72,11 +72,9 @@ class Brand(db.Model):
 	brand_pastured = db.Column(db.Boolean)
 	brand_slow_growth = db.Column(db.Boolean)
 
-
-
-class UserPreferences(db.Model):
-	"""These are our user preferences"""
-	__tablename__ = "preferences"
+class Value(db.Model):
+	"""These are our user values in regards to what they consume regularly"""
+	__tablename__ = "values"
 
 	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	halal = db.Column(db.Boolean)
@@ -89,6 +87,23 @@ class UserPreferences(db.Model):
 	organic_95 = db.Column(db.Boolean)
 	price = db.Column(db.Integer)
 
+class Preference(db.Model):
+	"""These are likert type statements/questions for our users"""
+
+	__tablename__ = "preferences"
+	
+	preference_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	preference1 = db.Column(db.String(64))
+	preference2 = db.Column(db.String(64))
+	preference3 = db.Column(db.String(64))
+	preference4 = db.Column(db.String(64))
+	preference5 = db.Column(db.String(64))
+	preference6 = db.Column(db.String(64))
+	preference7 = db.Column(db.String(64))
+	preference8 = db.Column(db.String(64))
+	preference9 = db.Column(db.String(64))
+	preference10 = db.Column(db.String(64))
+
 
 ##############################################################################
 # Helper functions
@@ -97,7 +112,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our SQLite database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///taxonomy.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chickenwatch.db'
     db.app = app
     db.init_app(app)
 
