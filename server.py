@@ -39,7 +39,7 @@ def send_to_regist():
 	"""Sends user to registration"""
 	return render_template("/registration.html")
 
-@app.route('/submitregistration', methods=['POST'])
+@app.route('/submitregistrationtodb', methods=['POST'])
 def post_reg_info_to_db():
 	"""This saves the new user registration information in the db"""
 	
@@ -87,7 +87,7 @@ def show_results():
 		# print type(Taxonomy_obj) this is a list 
 		for obj in Taxonomy_obj:
 			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
-			# print item[u'shortDescription']
+			# print item[u'shortDescr iption']
 			# print item_stuff_dictd[item[u'name']] 
 			if item[u'categoryNode'] == obj.category_node:
 				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
@@ -112,42 +112,60 @@ def show_results():
 @app.route('/brand-detail/<item_id>', methods=['GET'])
 def lookup_api(item_id):
 	# get item id from HTTP address
-	print item_id
-	# passes item id to lookup api
+	# print item_id
+	# # passes item id to lookup api
 	product_wm_api = requests.get('http://api.walmartlabs.com/v1/items/' + item_id + '?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q')
-	# creates json object
+	# # creates json object
 	product_info = product_wm_api.json()
 	# returns brandName of product info in json object
 	item_brand = product_info['brandName']
-	print product_info['brandName']
+	# print item_brand this prints out as Great Value
+	# print type(item_brand) this is a unicode object
 	# takes brandName, accesses 'brands' table 
-	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand)
+	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).all()
+	for obj in brand_info:
+		print obj.brand_name
+	return render_template('/brand-detail.html', brand_name=obj.brand_name)
 
-	return render_template('/brand-detail.html', brand_info=brand_info)
-
-@app.route('/get_brand_names', methods=['GET'])
-def get_brand_names():
-	Taxonomy_all = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).all()
-	for taxonomy_item in Taxonomy_all:
-		cat_id = taxonomy_item.category_node
-		print cat_id
-		print 'http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id
-		r = requests.get('http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id)
-		# Error with accessing datafeed api - May 26 emailed walmart
-		data_feed = r.json()
-		print data_feed 
-	return 'Taxonomy_node'
+# @app.route('/get_brand_names', methods=['GET'])
+# def get_brand_names():
+# 	Taxonomy_all = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).all()
+# 	for taxonomy_item in Taxonomy_all:
+# 		cat_id = taxonomy_item.category_node
+# 		print cat_id
+# 		print 'http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id
+# 		r = requests.get('http://api.walmartlabs.com/v1/feeds/items?apiKey=qb5mmbrawdsnnr74yqc6sn8q&categoryId=' + cat_id)
+# 		# Error with accessing datafeed api - May 26 emailed walmart
+# 		data_feed = r.json()
+# 		print data_feed 
+# 	return 'Taxonomy_node'
 
 
-# @app.route('/user_preference', methods=['GET'])
+@app.route('/user_input', methods=['GET'])
+def get_user_input():
+	return render_template("/nowsearch")
 
 @app.route('/conventional')
 def conventional_info():
 	return render_template("/conventional.html")
 
 
-if __name__ == "__main__":
+@app.route('/organic')
+def organic_info():
+	return render_template("/organic.html")
 
+
+@app.route('/free_range')
+def free_range_info():
+	return render_template("/free_range.html")
+
+
+@app.route('/pastured')
+def pastured_info():
+	return render_template("/pastured.html")
+
+
+if __name__ == "__main__":
 	app.debug = True
 
 	connect_to_db(app)

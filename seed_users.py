@@ -8,7 +8,7 @@ DB_URI = "http:///taxonomy.db"
 
 def seed_users():
 	"""This takes the .csv user data and seeds it into my database"""
-	openfile = open("./Fake_user_data.csv")
+	openfile = open("./data/Fake_user_data.csv")
 
 	for line in openfile:
 		user_row = line.rstrip().split(",")

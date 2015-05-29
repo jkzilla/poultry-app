@@ -64,7 +64,7 @@ class Brand(db.Model):
 	brand_youtube = db.Column(db.String(64))
 	brand_instagram = db.Column(db.String(64))
 	brand_twitter = db.Column(db.String(64))
-	brand_pintrest
+	brand_pintrest = db.Column(db.String(64))
 	brand_google_plus = db.Column(db.String(64))
 	brand_conventional = db.Column(db.Boolean)
 	brand_organic = db.Column(db.Boolean)
@@ -87,7 +87,7 @@ class UserPreferences(db.Model):
 	antibiotics = db.Column(db.Boolean)
 	organic_100 = db.Column(db.Boolean)
 	organic_95 = db.Column(db.Boolean)
-	price = db.Column(db.Boolean)
+	price = db.Column(db.Integer)
 
 
 ##############################################################################

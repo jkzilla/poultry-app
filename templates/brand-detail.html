@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>This is the brand detail page</h1>
+
+{{ brand_name }}
+
+<form action="/product_approval" method="GET">
+
+<br>
+<label>Did you purchase this product?</label><br>
+<input type="submit" value="yes"name="yes">
+<input type="submit" value="no" name="no">
+<br>
+</form>
+{% endblock %}
