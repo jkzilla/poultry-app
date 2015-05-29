@@ -2,15 +2,26 @@
 {% block content %}
 
 <h1>This is the brand detail page</h1>
-
+<!-- <!- add relevant info -->
 {{ brand_name }}
 
 <form action="/purchase_made_y_n" method="GET">
 
 <br>
 <label>Did you purchase this product?</label><br>
-<input type="submit" value="yes"name="yes">
-<input type="submit" value="no" name="no">
+<input type="submit" id="yes1" value="yes2"name="yes3">
+<input type="submit" id="no1" value="no2" name="no3">
 <br>
 </form>
+
+
+{% if brand.conventional %}
+<h2>fdf</h2>
+
+
+{% endif %}
+
+
+{% if brand.organic %}\
+
 {% endblock %}

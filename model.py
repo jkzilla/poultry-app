@@ -42,16 +42,38 @@ class User(db.Model):
 	"""This is our fake user database"""
 
 	__tablename__ = "users"
-
+# build user profile page
 	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	name = db.Column(db.String(64), nullable=False)
 	email = db.Column(db.String(64), nullable=False)
 	password = db.Column(db.String(64), nullable=False)
+	gender = db.Column(db.String(64))
+
+
+	halal = db.Column(db.Boolean)
+	free_range = db.Column(db.Boolean)
+	slow_growth = db.Column(db.Boolean)
+	pastured = db.Column(db.Boolean)
+	non_gmo = db.Column
+	antibiotics = db.Column(db.Boolean)
+	organic_100 = db.Column(db.Boolean)
+	organic_95 = db.Column(db.Boolean)
+	price = db.Column(db.Integer)	
+	preference_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	preference1 = db.Column(db.String(64))
+	preference2 = db.Column(db.String(64))
+	preference3 = db.Column(db.String(64))
+	preference4 = db.Column(db.String(64))
+	preference5 = db.Column(db.String(64))
+	preference6 = db.Column(db.String(64))
+	preference7 = db.Column(db.String(64))
+	preference8 = db.Column(db.String(64))
+	preference9 = db.Column(db.String(64))
+	preference10 = db.Column(db.String(64))	
 
 	def __repr__(self):
 		"""This is a helpful representation"""
 		return "<User name=%s email=%s>" % (self.name, self.email)
-
 class Brand(db.Model):
 	"""This the brand database for Walmart products in the category of Food: """
 
@@ -72,37 +94,7 @@ class Brand(db.Model):
 	brand_pastured = db.Column(db.Boolean)
 	brand_slow_growth = db.Column(db.Boolean)
 
-class Value(db.Model):
-	"""These are our user values in regards to what they consume regularly"""
-	__tablename__ = "values"
 
-	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-	halal = db.Column(db.Boolean)
-	free_range = db.Column(db.Boolean)
-	slow_growth = db.Column(db.Boolean)
-	pastured = db.Column(db.Boolean)
-	non_gmo = db.Column
-	antibiotics = db.Column(db.Boolean)
-	organic_100 = db.Column(db.Boolean)
-	organic_95 = db.Column(db.Boolean)
-	price = db.Column(db.Integer)
-
-class Preference(db.Model):
-	"""These are likert type statements/questions for our users"""
-
-	__tablename__ = "preferences"
-	
-	preference_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-	preference1 = db.Column(db.String(64))
-	preference2 = db.Column(db.String(64))
-	preference3 = db.Column(db.String(64))
-	preference4 = db.Column(db.String(64))
-	preference5 = db.Column(db.String(64))
-	preference6 = db.Column(db.String(64))
-	preference7 = db.Column(db.String(64))
-	preference8 = db.Column(db.String(64))
-	preference9 = db.Column(db.String(64))
-	preference10 = db.Column(db.String(64))
 
 
 ##############################################################################
@@ -112,7 +104,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our SQLite database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chickenwatch.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///poultrywatch.db'
     db.app = app
     db.init_app(app)
 

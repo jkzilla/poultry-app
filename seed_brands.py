@@ -5,7 +5,7 @@ from model import Brand, db, connect_to_db
 
 import csv
 
-DB_URI = "http:///taxonomy.db" 
+DB_URI = "http:///poultrywatch.db" 
 
 
 def seed_brand_info():
@@ -66,7 +66,7 @@ def seed_brand_info():
 		"slow_growth": False,
 		},
 
-		{"brand_name": "Swansom",
+		{"brand_name": "Swanson",
 		"parent_company": None,
 		"brand_website": "http://www.swansonchicken.com/",
 		"brand_youtube": "https://www.youtube.com/user/SwansonChicken",
@@ -180,7 +180,7 @@ def seed_brand_info():
 		"brand_twitter": "https://twitter.com/perduechicken",
 		"brand_google_plus": "https://plus.google.com/+perduechicken",
 		"brand_pintrest": None,
-		"brand_conventional": True,
+		"brand_conventional": False,
 		"brand_organic": True,
 		"brand_free_range": False,
 		"brand_pastured": False,

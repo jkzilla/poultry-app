@@ -10,7 +10,7 @@ from pprint import pprint
 
 api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 
-DB_URI = "http:///taxonomy.db" 
+DB_URI = "http:///poultrywatch.db" 
 
 
 def get_wm_taxonomy():

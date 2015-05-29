@@ -39,6 +39,7 @@ def send_to_regist():
 	"""Sends user to registration"""
 	return render_template("/registration.html")
 
+
 @app.route('/submitregistrationtodb', methods=['POST'])
 def post_reg_info_to_db():
 	"""This saves the new user registration information in the db"""
@@ -74,7 +75,7 @@ def show_results():
 
 	search_items_not_filtered_list = user_search(user_query)
 	found = []
-	i = 0
+	
 	# name = item_stuff_dict[item[u'name']]
 	# print item_stuff_dict
 	for item in search_items_not_filtered_list:
@@ -84,11 +85,11 @@ def show_results():
 		# print item[u'categoryNode']
 		# print item[u'categoryNode'] => this prints a categoryNode in the terminal
 		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
-		# print type(Taxonomy_obj) this is a list 
+		print Taxonomy_obj 
+		# this is a list 
 		for obj in Taxonomy_obj:
 			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
-			# print item[u'shortDescr iption']
-			# print item_stuff_dictd[item[u'name']] 
+			print obj
 			if item[u'categoryNode'] == obj.category_node:
 				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
 				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
@@ -102,7 +103,7 @@ def show_results():
 					"customer_rating_img": item.get(u'customerRatingImage', ""),
 					"thumbnail_image": item.get(u'thumbnailImage', "")
 					})
-		
+	# print found	
 	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
 	# [{'price': 2.50, 'color': 'red'}]			
 	return render_template("searchresults.html", found=found)
@@ -122,12 +123,9 @@ def lookup_api(item_id):
 	# print item_brand this prints out as Great Value
 	# print type(item_brand) this is a unicode object
 	# takes brandName, accesses 'brands' table 
-	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).all()
-# IMPORTANT IMPORTANT
-	# if brand_info returns None:
-	# 	brand_table_values = Brand(brand_name=item_brand, email=email)
-	# 	db.session.add(brand_table_values)
-	# 	db.session.commit()
+	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
+# if you search for a breand you dont find, make condition to show that it doesn't have info
+# make template
 	for obj in brand_info:
 		print obj.brand_name
 	return render_template('/brand-detail.html', brand_name=obj.brand_name)

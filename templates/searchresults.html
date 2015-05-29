@@ -3,26 +3,25 @@
 
 <h1>These are the search results</h1>
 
-
 <ul> {% for item in found %}
 	<li><a href="/brand-detail/{{ item['item_id'] }}" action="/brand-detail">{{ item.name }} {{ item.category }} {{ item.item_id }} {{ item.sale_price }} {{ item.description }} {{ item.customer_rating_img }} {{ item.thumbnail_image }}</a></li>
 	{% endfor %}
 </ul>
 
-<form>
+<!-- <form>
 	
 
-</form>
+</form> -->
 
-<script>
-$('.clickable_item').click(function() {
-	var id = $(this).attr('data-id');
-	$.get('/lookup_api', {itemId:id}, function(){
-		console.log('hi');
-	});
-});
+<!-- // <script> -->
+<!-- // $('.clickable_item').click(function() {
+// 	var id = $(this).attr('data-id');
+// 	$.get('/lookup_api', {itemId:id}, function(){
+// 		console.log('hi');
+// 	});
+// });
+ -->
 
-
-</script>
-{% endblock %}
+<!-- // </script>
+ -->{% endblock %}
 <!-- create a clickable obj out of value, which send the  --> 

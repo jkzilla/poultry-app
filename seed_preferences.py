@@ -1,11 +1,11 @@
 
 
 
-from model import Brand, db, connect_to_db
+from model import Preference, db, connect_to_db
 
 import csv
 
-DB_URI = "http:///taxonomy.db" 
+DB_URI = "http:///chickenwatch.db" 
 
 
 def seed_brand_info():

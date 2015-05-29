@@ -1,12 +1,12 @@
 
-from model import User, db, connect_to_db
+from model import Manager, db, connect_to_db
 
 import csv
 
 DB_URI = "http:///poultrywatch.db" 
 
 
-def seed_users():
+def seed_managers():
 	"""This takes the .csv user data and seeds it into my database"""
 	openfile = open("./data/Fake_user_data.csv")
 
@@ -14,14 +14,8 @@ def seed_users():
 		user_row = line.rstrip().split(",")
 		user_row[0] = user_row[0].replace('\xa0', ' ').rstrip()
 		print user_row
-		user_table_values = User(
-				name=user_row[0], 
-				email=user_row[1], 
-				password=user_row[3]
-				gender=user_row[4],
-				
-				)
-		db.session.add(user_table_values)
+		manager_table_values = Manager(name=user_row[0], email=user_row[1], password=user_row[3])
+		db.session.add(manager_table_values)
 
 	db.session.commit()
 
