@@ -11,8 +11,15 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 </head>
 <body>
+	{% if session %}
+	<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
+	
+	{% endif %}
 
-
+	{% if session %}
+	<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
+	
+	{% endif %}
     <ul>
         {% for message in get_flashed_messages() %}
             <li>{{ message | safe }}</li>

@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>this is the search page</h1>
+{{ user }}
+<h3>Hello, {{ user.name }}</h3>
+<h4>Search for Walmart Poultry Product</h4>
 
 </form>
 <form action="/getresults" method="GET">

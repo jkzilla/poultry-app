@@ -2,6 +2,7 @@
 {% block content %}
 
 <div>
+<p>A communication platform between consumers, their local Walmart, and the farms. We help grocery and poultry farms understand the consumers they provide for.<p>
 
 <form action="/login" method="POST">
 
@@ -10,7 +11,8 @@
 	<input type="text" name="email"><br>
 	<label>Password</label><br>
 	<input type="text" name="password"><br>
-	<input type="submit" value="Login"><br>
+	<input	type="submit" name="Sign in"><br>
+
 </form>
 
 
@@ -21,11 +23,5 @@
     <input type="submit" class="btn btn-primary btn-lg" value="Take me to registration!">
 </form>
 <br>
-<form action="/registermanager" method="GET">
-
-    <label>Register as a store manager</label>
-    <br>
-    <input type="submit" class="btn btn-primary btn-lg" value="Take me to the manager registration!">
-</form>
 
 {% endblock %}

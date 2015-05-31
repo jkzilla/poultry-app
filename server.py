@@ -18,8 +18,8 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
 	"""Homepage."""
-
-	return render_template("index.html")
+	user = None
+	return render_template("index.html", user=user)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -29,7 +29,7 @@ def login():
 	user = User.query.filter_by(email=email, password=password).first()
 	if user:
 		flash("You are now logged in")
-		return render_template("/nowsearch.html") 
+		return render_template("/nowsearch.html", user=user) 
 	elif ValueError:
 		flash("Invalid Login, please try again or register using the registration button below")
 		return render_template("/index.html")
@@ -37,7 +37,8 @@ def login():
 @app.route('/register', methods=['GET'])
 def send_to_regist():
 	"""Sends user to registration"""
-	return render_template("/registration.html")
+	user = None
+	return render_template("/registration.html", user=user)
 
 
 @app.route('/submitregistrationtodb', methods=['POST'])
@@ -56,7 +57,7 @@ def post_reg_info_to_db():
 	user = User.query.filter_by(email=email)
 	if user:
 		flash("You are now logged in")
-		return render_template("/nowsearch.html")
+		return render_template("/nowsearch.html", user=user)
 
 @app.route('/search')
 def search_walmart():
@@ -71,6 +72,7 @@ def show_results():
 
 	"""This shows the results of search on search page. Working here May 24th. """
 	user_query = request.args.get("search")
+	user = session["name"]
 	# print user_query
 
 	search_items_not_filtered_list = user_search(user_query)
@@ -118,7 +120,7 @@ def show_results():
 	# print found	
 	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
 	# [{'price': 2.50, 'color': 'red'}]			
-	return render_template("searchresults.html", found=found, preferences=preferences)
+	return render_template("searchresults.html", found=found, preferences=preferences, user=user)
 
 #make a route with the lookup api. This route takes the item[item_id] from searchresults.html, and passes it
 # to the lookup ap
@@ -138,9 +140,10 @@ def lookup_api(item_id):
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
 # if you search for a breand you dont find, make condition to show that it doesn't have info
 # make template
-	for obj in brand_info:
-		print obj.brand_name
-	return render_template('/brand-detail.html', brand_name=obj.brand_name)
+	print brand_info
+	brand_name = brand_info[0]
+
+	return render_template('/brand-detail.html', brand_name=brand_name)
 
 @app.route('/product_approval', methods=['GET'])
 def get_purchase_y_n():
@@ -151,7 +154,12 @@ def get_purchase_y_n():
 
 @app.route('/user_input', methods=['GET'])
 def get_user_input():
-	return render_template("/nowsearch")
+	return render_template("/nowsearch.html")
+
+@app.route('/logout')
+def logout():
+	logout_user()
+	return render_template("/index.html")
 
 
 if __name__ == "__main__":
