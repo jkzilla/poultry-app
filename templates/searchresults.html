@@ -3,10 +3,10 @@
 
 <h1>These are the search results</h1>
 
-<ul> {% for item in found %}
+<ul> {% for item in found_items %}
 	<li><a href="/brand-detail/{{ item['item_id'] }}" action="/brand-detail">{{ item.name }} {{ item.category }} {{ item.item_id }} {{ item.sale_price }} {{ item.description }} {{ item.customer_rating_img }} {{ item.thumbnail_image }}</a></li>
 	{% endfor %}
 </ul>
-{{ preferences }}
- -->{% endblock %}}
+
+{% endblock %}}
 }

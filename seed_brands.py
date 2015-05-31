@@ -187,7 +187,6 @@ def seed_brand_info():
 		"slow_growth": False,
 		}, 
 		]
-	another_list = []
 	for dict_item in brand_name_list:
 			
 		brand_table_values = Brand(	

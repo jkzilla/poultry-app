@@ -27,8 +27,10 @@ def login():
 	email = request.form.get("email")
 	password = request.form.get("password")
 	user = User.query.filter_by(email=email, password=password).first()
+
 	if user:
 		flash("You are now logged in")
+		db.session(email, password, user)
 		return render_template("/nowsearch.html", user=user) 
 	elif ValueError:
 		flash("Invalid Login, please try again or register using the registration button below")
@@ -70,41 +72,7 @@ def search_walmart():
 @app.route('/getresults', methods=['GET'])
 def show_results():
 
-	"""This shows the results of search on search page. Working here May 24th. """
-	user_query = request.args.get("search")
-	user = session["name"]
-	# print user_query
-
-	search_items_not_filtered_list = user_search(user_query)
-	found = []
-	
-	# name = item_stuff_dict[item[u'name']]
-	# print item_stuff_dict
-	for item in search_items_not_filtered_list:
-		# search_items_not_filtered_list is a list of dicts 
-		# print type(item) ==> this is dict
-		# print type(search_items_not_filtered_list) this is a list
-		# print item[u'categoryNode']
-		# print item[u'categoryNode'] => this prints a categoryNode in the terminal
-		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
-		print Taxonomy_obj 
-		# this is a list 
-		for obj in Taxonomy_obj:
-			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
-			print obj
-			if item[u'categoryNode'] == obj.category_node:
-				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
-				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
-				found.append({
-					"name": item.get(u'name', ""), 
-					"item_id": item.get(u'itemId', ""),
-					"category": item.get(u'categoryPath', ""), 
-					"sale_price": item.get(u'salePrice', ""), 
-					"description": item.get(u'shortDescription', ""), 
-					# when I run server.py I receive a KeyError: u'ShortDescription'
-					"customer_rating_img": item.get(u'customerRatingImage', ""),
-					"thumbnail_image": item.get(u'thumbnailImage', "")
-					})
+	"""This shows the results of search on search page. Working here May 31th. """
 	preferences = { 
 		"preference1": "I prefer the least expensive option, always.",
 		"preference2": "I buy organic products.",
@@ -117,10 +85,45 @@ def show_results():
 		"preference9": "I am buying for a celebration.",
 		"preference10": "I always pay more for quality.",
 		}
+	user_query = request.args.get("search")
+	user = session.get("name")
+	# print user_query
+
+	search_items_not_filtered_list = user_search(user_query)
+	found_items = []
+	
+	# name = item_stuff_dict[item[u'name']]
+	# print item_stuff_dict
+	for item in search_items_not_filtered_list:
+		# search_items_not_filtered_list is a list of dicts 
+		# print type(item) ==> this is dict
+		# print type(search_items_not_filtered_list) this is a list
+		# print item[u'categoryNode']
+		# print item[u'categoryNode'] => this prints a categoryNode in the terminal
+		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
+		# print Taxonomy_obj 
+		# this is a list 
+		for obj in Taxonomy_obj:
+			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
+			print obj
+			if item[u'categoryNode'] == obj.category_node:
+				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
+				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
+				found_items.append[{
+					"name": item.get(u'name', ""), 
+					"item_id": item.get(u'itemId', ""),
+					"category": item.get(u'categoryPath', ""), 
+					"sale_price": item.get(u'salePrice', ""), 
+					"description": item.get(u'shortDescription', ""), 
+					# when I run server.py I receive a KeyError: u'ShortDescription'
+					"customer_rating_img": item.get(u'customerRatingImage', ""),
+					"thumbnail_image": item.get(u'thumbnailImage', "")
+					}]
+
 	# print found	
 	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
 	# [{'price': 2.50, 'color': 'red'}]			
-	return render_template("searchresults.html", found=found, preferences=preferences, user=user)
+	return render_template("searchresults.html", found_items=found_items, preferences=preferences, user=user)
 
 #make a route with the lookup api. This route takes the item[item_id] from searchresults.html, and passes it
 # to the lookup ap
@@ -151,10 +154,18 @@ def get_purchase_y_n():
 	print yes1
 	return render_template("/user_input.html", purchase_decision=yes)
 
-
 @app.route('/user_input', methods=['GET'])
 def get_user_input():
 	return render_template("/nowsearch.html")
+
+@app.route('/user_profile', methods=['GET'])
+def go_to_user_profile():
+
+	if 'email' not in session:
+		return render_template("/index.html")
+
+	name = db.session.query(User).filter_by(session["name"=name]).all()
+	return render_template("user_profile/<name>.html", name=name)
 
 @app.route('/logout')
 def logout():
