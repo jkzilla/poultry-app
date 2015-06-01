@@ -8,7 +8,7 @@ import csv
 DB_URI = "http:///chickenwatch.db" 
 
 
-def seed_more_user info():
+def seed_more_user_info():
 
 	preferences = { 
 		"preference1": "I prefer the least expensive option, always.",

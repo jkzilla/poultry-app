@@ -29,6 +29,7 @@ class Taxonomy(db.Model):
 	path = db.Column(db.String(64))
 	children = db.Column(db.Boolean)
 
+
 	def __repr__(self):
 		"""This is a helpful representation"""
 		return "<Taxonomy category_node=%s name=%s>" % (self.category_node, self.name)  
@@ -90,6 +91,31 @@ class Brand(db.Model):
 	brand_free_range = db.Column(db.Boolean)
 	brand_pastured = db.Column(db.Boolean)
 	brand_slow_growth = db.Column(db.Boolean)
+
+class SearchActivity(db.Model):
+	"""Database for user search activity"""
+
+	__tablename__ = "search_activity"
+
+	query_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	user_id = db.Column(db.Integer, nullable=False)
+	search_query = db.Column(db.String(64), nullable=False)
+	datetime = db.Column(db.DateTime)
+
+
+
+# class Activity(db.Model):
+	
+# 	__tablename__ = "activities"
+
+# 	activity_key = 
+# 	user_id = db
+
+
+
+
+
+
 
 
 
