@@ -8,6 +8,7 @@ from jinja2 import StrictUndefined
 from utils import user_search
 from datetime import datetime
 import requests
+import random
 # import simplejson
 # import urllib2
 
@@ -81,18 +82,7 @@ def post_reg_info_to_db():
 def show_results():
 
 	"""This shows the results of search on search page. Working here May 31th. """
-	preferences = { 
-		"preference1": "I prefer the least expensive option, always.",
-		"preference2": "I buy organic products.",
-		"preference3": "If I see a good cause, I support it.",
-		"preference4": "I trust the market to give the consumer a satisfactory product",
-		"preference5": "I have recently changed my diet and have started eating healthier.",
-		"preference6": "I live by a budget.",
-		"preference7": "I am afraid of what is sold in our grocery stores.",
-		"preference8": "I was recently promoted.",
-		"preference9": "I am buying for a celebration.",
-		"preference10": "I always pay more for quality.",
-		}
+
 	user_query = request.args.get("search")
 	# user = session.get("name")
 	print user_query
@@ -186,16 +176,34 @@ def get_purchase_y_n():
 		)
 	db.session.add(purchase_activity)
 	db.session.commit()
-	
+	preferences = { 
+	"preference1": "I prefer the least expensive option, always.",
+	"preference2": "I buy organic products.",
+	"preference3": "If I see a good cause, I support it.",
+	"preference4": "I trust the market to give the consumer a satisfactory product",
+	"preference5": "I have recently changed my diet and have started eating healthier.",
+	"preference6": "I live by a budget.",
+	"preference7": "I am cautious of what is sold in our grocery stores.",
+	"preference8": "I was recently promoted.",
+	"preference9": "I am buying for a celebration.",
+	"preference10": "I always pay more for quality.",
+	}
+
+	# user_preference_check = 
+	preference1 = random.choice(preferences.values())
+	preference2 = random.choice(preferences.values())
+	preference3 = random.choice(preferences.values())
 
 
-	return render_template("/user_input.html", purchased=purchased)
+	return render_template("/user_input.html", purchased=purchased, 
+		preference_1=preference1, preference_2=preference2, 
+		preference_3=preference3)
 
 @app.route('/user_input', methods=['GET'])
 def get_user_input():
 	return render_template("/nowsearch.html")
 
-@app.route('/user_profile', methods=['GET'])
+@app.route('/user_profile/<user_id>.html', methods=['GET'])
 def go_to_user_profile():
 
 	if 'email' not in session:
@@ -207,7 +215,11 @@ def go_to_user_profile():
 	print user.name
 	return render_template("user_profile/<name>.html", name=name)
 
-@app.route('/add_preferences', methods=['GET'])
+@app.route('/add_preferences/<user_id>', methods=['GET'])
+def add_user_preferences():
+	# take the information submited by the form for the preference questions
+
+	return render_template("/user_profile/<user_id>.html")
 
 @app.route('/logout')
 def logout():

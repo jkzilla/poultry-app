@@ -12,12 +12,15 @@
 </head>
 <body>
 	{% if session %}
+	<form action="/user_profile/<user_id>.html" method="GET">
 	<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
-	
+	</form>
 	{% endif %}
 
 	{% if session %}
+	<form action="/" method="GET">
 	<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
+	</form>
 	
 	{% endif %}
     <ul>
