@@ -23,18 +23,19 @@
 	{% endif %}
 
 </ul>
-<form action="/purchase_made_y_n" method="GET">
+<form action="/product_approval" method="GET">
 
 <br>
 <label>Did you purchase this product?</label><br>
-<input type="submit" id="yes1" value="yes2"name="yes3">
-<input type="submit" id="no1" value="no2" name="no3">
+<input type="submit" name="yes" value="Yes">
+<input type="submit" name="no" value="No">
 <br>
 </form>
 
 
 {% if brand.brand_conventional %}
 <h2> Conventional </h2>
+
 {% endif %}
 {% if brand.brand_organic %}
 <h2>Organic</h2>

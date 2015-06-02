@@ -3,13 +3,13 @@
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify, json
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User, Taxonomy, Brand, SearchActivity
+from model import connect_to_db, db, User, Taxonomy, Brand, SearchActivity, PurchaseActivity
 from jinja2 import StrictUndefined
 from utils import user_search
 from datetime import datetime
 import requests
-import simplejson
-import urllib2
+# import simplejson
+# import urllib2
 
 app = Flask(__name__)
 
@@ -147,6 +147,7 @@ def lookup_api(item_id):
 	# print item_id
 	# # passes item id to lookup api
 	product_wm_api = requests.get('http://api.walmartlabs.com/v1/items/' + item_id + '?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q')
+	session["item_id"] = item_id
 	# # creates json object
 	product_info = product_wm_api.json()
 	# returns brandName of product info in json object
@@ -157,15 +158,38 @@ def lookup_api(item_id):
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
 # if you search for a breand you dont find, make condition to show that it doesn't have info
 # make template
-	
+	print brand_info.brand_conventional
+	session['conventional'] = brand_info.brand_conventional 
+	session['organic'] = brand_info.brand_organic
+	session['free_range'] = brand_info.brand_free_range
+	session['pastured'] = brand_info.brand_pastured
 
 	return render_template('/brand-detail.html', brand=brand_info)
 
 @app.route('/product_approval', methods=['GET'])
 def get_purchase_y_n():
-	yes1 = request.args.get("yes1")
-	print yes1
-	return render_template("/user_input.html", purchase_decision=yes)
+	yes = request.args.get("yes")                                   
+	no = request.args.get("no")
+	if yes:
+		purchased = 1
+	else:
+		purchased = 0
+	purchase_activity = PurchaseActivity(
+		user_id=session.get('user_id'), 
+		item_id=session.get('item_id'), 
+		datetime=datetime.now(), 
+		purchased=purchased, 
+		conventional=session.get('conventional'), 
+		organic=session.get('organic'), 
+		free_range=session.get('free_range'), 
+		pastured=session.get('pastured')
+		)
+	db.session.add(purchase_activity)
+	db.session.commit()
+	
+
+
+	return render_template("/user_input.html", purchased=purchased)
 
 @app.route('/user_input', methods=['GET'])
 def get_user_input():
@@ -182,6 +206,8 @@ def go_to_user_profile():
 	user = User.query.filter_by(user_id=user_id).all()
 	print user.name
 	return render_template("user_profile/<name>.html", name=name)
+
+@app.route('/add_preferences', methods=['GET'])
 
 @app.route('/logout')
 def logout():

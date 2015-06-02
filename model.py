@@ -102,8 +102,22 @@ class SearchActivity(db.Model):
 	search_query = db.Column(db.String(64), nullable=False)
 	datetime = db.Column(db.DateTime)
 
+class PurchaseActivity(db.Model):
+	"""Database for user purchase activity"""
 
+	__tablename__ = "purchases"
 
+	purchase_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	user_id	= db.Column(db.Integer, db.ForeignKey('users.user_id'))
+	item_id = db.Column(db.Integer, nullable=False)
+	datetime = db.Column(db.DateTime)
+	purchased = db.Column(db.Boolean)
+	conventional = db.Column(db.Boolean)
+	organic = db.Column(db.Boolean)
+	free_range = db.Column(db.Boolean)
+	pastured = db.Column(db.Boolean)
+
+	user = db.relationship("User", backref=db.backref("purchases"))
 # class Activity(db.Model):
 	
 # 	__tablename__ = "activities"

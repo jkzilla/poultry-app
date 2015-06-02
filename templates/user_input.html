@@ -1,11 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{{ purchase_decision }}
+{{ purchased }}
 
 
 <h1>Tell us about your values</h1>
-{{ question1 }}
+<div>
+<form action="/add_preferences	">
+	<table><tbody>
+	<th></th>
+		<tr>
+			<td><label for="Choice1">1</label></td>
+			<td><label for="Choice2">2</label></td>
+			<td><label for="Choice3">3</label></td>
+			<td><label for="Choice4">4</label></td>
+			<td><label for="Choice5">5</label></td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
+			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
+			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
+			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
+			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
+		</tr>
+	</tbody></table>
+</div>
+<br>
+<div>
+	<table><tbody>
+	<th></th>
+		<tr>
+			<td><label for="Choice1">1</label></td>
+			<td><label for="Choice2">2</label></td>
+			<td><label for="Choice3">3</label></td>
+			<td><label for="Choice4">4</label></td>
+			<td><label for="Choice5">5</label></td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
+			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
+			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
+			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
+			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
+		</tr>
+	</tbody></table>
+</div>
+<br>
 <div>
 	<table><tbody>
 		<tr>
@@ -23,47 +63,9 @@
 			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
 		</tr>
 	</tbody></table>
+	<input type="submit" value="Add Your Preferences"
+</form>
 </div>
-
-{{ question2 }}
-<div>
-	<table><tbody>
-		<tr>
-			<td><label for="Choice1">1</label></td>
-			<td><label for="Choice2">2</label></td>
-			<td><label for="Choice3">3</label></td>
-			<td><label for="Choice4">4</label></td>
-			<td><label for="Choice5">5</label></td>
-		</tr>
-		<tr>
-			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
-			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
-			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
-			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
-			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
-		</tr>
-	</tbody></table>
-</div>
-
-{{ question3 }}
-<div>
-	<table><tbody>
-		<tr>
-			<td><label for="Choice1">1</label></td>
-			<td><label for="Choice2">2</label></td>
-			<td><label for="Choice3">3</label></td>
-			<td><label for="Choice4">4</label></td>
-			<td><label for="Choice5">5</label></td>
-		</tr>
-		<tr>
-			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
-			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
-			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
-			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
-			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
-		</tr>
-	</tbody></table>
-</div>
-
+<br>
 
 {% endblock %}
