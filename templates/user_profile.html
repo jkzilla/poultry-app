@@ -8,26 +8,58 @@
 <!-- pretty representation of their preferences -->
 
 <ul>What are your preferences for:
-	<li>{{ user.halal }}</li>
-	<li>{{ user.free_range }}</li>
-	<li>{{ user.slow_growth }}</li>
-	<li>{{ user.pastured }}</li>
-	<li>{{ user.non_gmo }}</li>
-	<li>{{ user.antibiotics }}</li>
-	<li>{{ user.organic_100 }}</li>
-	<li>{{ user.organic_95 }}</li>
-	<li>{{ user.price }}</li>
-	<li>{{ user.preference1 }}</li>
-	<li>{{ user.preference2 }}</li>
-	<li>{{ user.preference3 }}</li>
-	<li>{{ user.preference4 }}</li>
-	<li>{{ user.preference5 }}</li>
-	<li>{{ user.preference6 }}</li>
-	<li>{{ user.preference7 }}</li>
-	<li>{{ user.preference8 }}</li>
-	<li>{{ user.preference9 }}</li>
-	<li>{{ user.preference10 }}</li>
-
-
+	<li><div>Halal</div>{{ user.halal }}</li>
+	<li><div>Free Range</div>{{ user.free_range }}</li>
+	<li><div>Slow Growth</div>{{ user.slow_growth }}</li>
+	<li><div>Pastured</div>{{ user.pastured }}</li>
+	<li><div>Non-GMO</div>{{ user.non_gmo }}</li>
+	<li><div>Antibiotics</div>{{ user.antibiotics }}</li>
+	<li><div>Organic</div>{{ user.organic_100 }}</li>
+	<li><div>Organic 95</div>{{ user.organic_95 }}</li>
+	<li><div>Price</div>{{ user.price }}</li>
+	<li><div>Preference 1</div>{{ user.preference1 }}</li>
+	<li><div>Preference 2</div>{{ user.preference2 }}</li>
+	<li><div>Preference 3</div>{{ user.preference3 }}</li>
+	<li><div>Preference 4</div>{{ user.preference4 }}</li>
+	<li><div>Preference 5</div>{{ user.preference5 }}</li>
+	<li><div>Preference 6</div>{{ user.preference6 }}</li>
+	<li><div>Preference 7</div>{{ user.preference7 }}</li>
+	<li><div>Preference 8</div>{{ user.preference8 }}</li>
+	<li><div>Preference 9</div>{{ user.preference9 }}</li>
+	<li><div>Preference 10</div>{{ user.preference10 }}</li>
+	<!-- , "Preference 2", "Preference 3", "Preference 4", "Preference 5", "Preference 6", "Preference 7", "Preference 8", "Preference 9", "Preference 10" -->
+<canvas id="myChart" width="600" height="600"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.js"></script>
+<script>
+	var data = {
+		labels: "Preference 1"
+		datasets: [
+			{label: "User Preferences",
+			fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [1]
+            ]
+		}
+		{
+		labels: "Search Query"
+			datasets: ["Search Query"]
+ 			fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [1]
+		}
+	}
+	var ctx = document.getElementbyId("myChart").getContext("2d");
+	var myNewChart = new Chart(ctx).Line(data);
+	Chart.defaults.global.responsive = true;
+	new Chart(ctx).PolarArea(data, options)
+</script>
 </ul>
  {% endblock %}

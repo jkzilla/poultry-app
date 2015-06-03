@@ -198,12 +198,15 @@ def get_purchase_y_n():
 	preferences_list = []
 	for key in keys:
 		user_preference = getattr(user, key)
-		if len(preferences_list) < 3:
+		if key is keys[-1]:
+			preferences_list.append(preferences[key])
+			return render_template("/user_input.html", purchased=purchased, preferences_list_1=preferences_list[0], preferences_list_2=None, preferences_list_3=None)
+		elif len(preferences_list) < 3:
 			if user_preference:
 				pass
 			else:
 				preferences_list.append(preferences[key])
-				if len(preferences_list) is 1:
+				if len(preferences_list) is 1:   	 
 					session["first_session_preference"] = key
 					print "first_session_preference"
 					print key
@@ -215,11 +218,8 @@ def get_purchase_y_n():
 					session["third_session_preference"] = key
 					print "third_session_preference"
 					print key
-	print preferences_list
-
-	return render_template("/user_input.html", purchased=purchased, 
-		preference_1=preferences_list[0], preference_2=preferences_list[1], 
-		preference_3=preferences_list[2])
+				print preferences_list
+			return render_template("/user_input.html", purchased=purchased, preferences_list_1=preferences_list[0], preferences_list_2=preferences_list[1], preferences_list_3=preferences_list[2])
 
 
 @app.route('/user_profile/<int:user_id>', methods=['GET'])
@@ -269,8 +269,9 @@ def add_user_preferences(user_id):
 
 	db.session.add(user)
 	db.session.commit()
-
-	return render_template('/user_profile.html', user=user)
+	search_activity = db.session.query(SearchActivity).filter_by(user_id=session["user_id"]).first()
+	print search_activity.search_query
+	return render_template('/user_profile.html', user=user, search_activity=search_activity)
 
 @app.route('/logout')
 def logout():
