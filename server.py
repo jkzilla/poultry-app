@@ -127,7 +127,7 @@ def show_results():
 	# print found	
 	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
 	# [{'price': 2.50, 'color': 'red'}]			
-	return render_template("searchresults.html", found_items=found_items, preferences=preferences)
+	return render_template("searchresults.html", found_items=found_items)
 
 #make a route with the lookup api. This route takes the item[item_id] from searchresults.html, and passes it
 # to the lookup ap
@@ -146,8 +146,8 @@ def lookup_api(item_id):
 	# print type(item_brand) this is a unicode object
 	# takes brandName, accesses 'brands' table 
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
-# if you search for a breand you dont find, make condition to show that it doesn't have info
-# make template
+# if you search for a brand you dont find, make condition to show that it doesn't have info
+
 	print brand_info.brand_conventional
 	session['conventional'] = brand_info.brand_conventional 
 	session['organic'] = brand_info.brand_organic
@@ -176,6 +176,7 @@ def get_purchase_y_n():
 		)
 	db.session.add(purchase_activity)
 	db.session.commit()
+	
 	preferences = { 
 	"preference1": "I prefer the least expensive option, always.",
 	"preference2": "I buy organic products.",
@@ -189,37 +190,87 @@ def get_purchase_y_n():
 	"preference10": "I always pay more for quality.",
 	}
 
-	# user_preference_check = 
-	preference1 = random.choice(preferences.values())
-	preference2 = random.choice(preferences.values())
-	preference3 = random.choice(preferences.values())
+	user = db.session.query(User).filter_by(user_id=session.get("user_id")).first()
 
+	keys = ["preference1", "preference2", "preference3", "preference4", 
+	"preference5", "preference6", "preference7", "preference8", "preference9", "preference10"]
+
+	preferences_list = []
+	for key in keys:
+		user_preference = getattr(user, key)
+		if len(preferences_list) < 3:
+			if user_preference:
+				pass
+			else:
+				preferences_list.append(preferences[key])
+				if len(preferences_list) is 1:
+					session["first_session_preference"] = key
+					print "first_session_preference"
+					print key
+				if len(preferences_list) is 2:
+					session["second_session_preference"] = key
+					print "second_session_preference"
+					print key
+				if len(preferences_list) is 3:
+					session["third_session_preference"] = key
+					print "third_session_preference"
+					print key
+	print preferences_list
 
 	return render_template("/user_input.html", purchased=purchased, 
-		preference_1=preference1, preference_2=preference2, 
-		preference_3=preference3)
+		preference_1=preferences_list[0], preference_2=preferences_list[1], 
+		preference_3=preferences_list[2])
 
-@app.route('/user_input', methods=['GET'])
-def get_user_input():
-	return render_template("/nowsearch.html")
 
-@app.route('/user_profile/<user_id>.html', methods=['GET'])
-def go_to_user_profile():
+@app.route('/user_profile/<int:user_id>', methods=['GET'])
+def go_to_user_profile(user_id):
 
-	if 'email' not in session:
+	if 'user_id' not in session:
 		return render_template("/index.html")
 	# to go to the user profile you have to access the session user id and look that up in the db
 
-	user_id = session["user_id"]
-	user = User.query.filter_by(user_id=user_id).all()
-	print user.name
-	return render_template("user_profile/<name>.html", name=name)
+	user_id = session.get("user_id")
+	user = User.query.filter_by(user_id=user_id).first()
+	print user
+	return render_template("user_profile.html", user=user)
 
-@app.route('/add_preferences/<user_id>', methods=['GET'])
-def add_user_preferences():
+@app.route('/add_preferences/<int:user_id>', methods=['GET'])
+def add_user_preferences(user_id):
 	# take the information submited by the form for the preference questions
+	first_session_pref = session.get("first_session_preference")
+	# print first_pref ==> "preference1"
+	second_session_pref = session.get("second_session_preference")
+	third_session_pref = session.get("third_session_preference")
+	
+	user = db.session.query(User).filter_by(user_id=session["user_id"]).one()
 
-	return render_template("/user_profile/<user_id>.html")
+	# get the value input by name "Choice1" "Choice2" "Choice3"
+	first_pref_data = request.args.get("Choice1")
+	second_pref_data = request.args.get("Choice2")
+	third_pref_data = request.args.get("Choice3")
+	
+	if first_session_pref == "preference1": 
+		user.preference1 = first_pref_data
+		user.preference2 = second_pref_data
+		user.preference3 = third_pref_data
+
+	if first_session_pref == "preference4":
+		user.preference4 = first_pref_data
+		user.preference5 = second_pref_data
+		user.preference6 = third_pref_data
+
+	if first_session_pref == "preference7":
+		user.preference7 = first_pref_data
+		user.preference8 = second_pref_data
+		user.preference9 = third_pref_data
+
+	if first_session_pref == "preference10":
+		user.preference10 = first_pref_data
+
+	db.session.add(user)
+	db.session.commit()
+
+	return render_template('/user_profile.html', user=user)
 
 @app.route('/logout')
 def logout():

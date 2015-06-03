@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Welcome, {{ user.name }}</h1>
+
+<h2>Your preferences:</h2>
+
+<!-- pretty representation of their preferences -->
+
+<ul>What are your preferences for:
+	<li>{{ user.halal }}</li>
+	<li>{{ user.free_range }}</li>
+	<li>{{ user.slow_growth }}</li>
+	<li>{{ user.pastured }}</li>
+	<li>{{ user.non_gmo }}</li>
+	<li>{{ user.antibiotics }}</li>
+	<li>{{ user.organic_100 }}</li>
+	<li>{{ user.organic_95 }}</li>
+	<li>{{ user.price }}</li>
+	<li>{{ user.preference1 }}</li>
+	<li>{{ user.preference2 }}</li>
+	<li>{{ user.preference3 }}</li>
+	<li>{{ user.preference4 }}</li>
+	<li>{{ user.preference5 }}</li>
+	<li>{{ user.preference6 }}</li>
+	<li>{{ user.preference7 }}</li>
+	<li>{{ user.preference8 }}</li>
+	<li>{{ user.preference9 }}</li>
+	<li>{{ user.preference10 }}</li>
+
+
+</ul>
+ {% endblock %}

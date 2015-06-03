@@ -12,7 +12,7 @@
 </head>
 <body>
 	{% if session %}
-	<form action="/user_profile/<user_id>.html" method="GET">
+	<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
 	<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
 	</form>
 	{% endif %}

@@ -5,66 +5,84 @@
 
 
 <h1>Tell us about your values</h1>
-<div>
-<form action="/add_preferences	">
+<div>{{ preference_1 }}
+<form action="/add_preferences/{{session.get('user_id')}}" method="GET">
 	<table><tbody>
-	<th>{{ preference_1 }}</th>
 		<tr>
-			<td><label for="Choice1">1</label></td>
-			<td><label for="Choice2">2</label></td>
-			<td><label for="Choice3">3</label></td>
-			<td><label for="Choice4">4</label></td>
-			<td><label for="Choice5">5</label></td>
+			<td><input type="radio" id="Choice1a" name="Choice1" value="1" /></td>
+			<td><input type="radio" id="Choice1b" name="Choice1" value="2" /></td>
+			<td><input type="radio" id="Choice1c" name="Choice1" value="3" /></td>
+			<td><input type="radio" id="Choice1d" name="Choice1" value="4" /></td>
+			<td><input type="radio" id="Choice1e" name="Choice1" value="5" /></td>
 		</tr>
 		<tr>
-			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
-			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
-			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
-			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
-			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
+			<td><label for="Choice1a">1</label></td>
+			<td><label for="Choice1b">2</label></td>
+			<td><label for="Choice1c">3</label></td>
+			<td><label for="Choice1d">4</label></td>
+			<td><label for="Choice1e">5</label></td>
+		</tr>
+		<tr>
+		<td><label for="Choice1a">Strongly Disagree</label></td>
+		<td></td>			
+		<td></td>			
+		<td></td>			
+		<td><label for="Choice1e">Strongly Agree</label></td>			
 		</tr>
 	</tbody></table>
 </div>
 <br>
-<div>
+<div>{{ preference_2 }}
 	<table><tbody>
-	<th>{{ preference_2 }}</th>
 		<tr>
-			<td><label for="Choice1">1</label></td>
-			<td><label for="Choice2">2</label></td>
-			<td><label for="Choice3">3</label></td>
-			<td><label for="Choice4">4</label></td>
-			<td><label for="Choice5">5</label></td>
+			<td><input type="radio" id="Choice2a" name="Choice2" value="1" /></td>
+			<td><input type="radio" id="Choice2b" name="Choice2" value="2" /></td>
+			<td><input type="radio" id="Choice2c" name="Choice2" value="3" /></td>
+			<td><input type="radio" id="Choice2d" name="Choice2" value="4" /></td>
+			<td><input type="radio" id="Choice2e" name="Choice2" value="5" /></td>
 		</tr>
 		<tr>
-			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
-			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
-			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
-			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
-			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
+			<td><label for="Choice2a">1</label></td>
+			<td><label for="Choice2b">2</label></td>
+			<td><label for="Choice2c">3</label></td>
+			<td><label for="Choice2d">4</label></td>
+			<td><label for="Choice2e">5</label></td>
+		</tr>
+		<tr>
+		<td><label for="Choice1a">Strongly Disagree</label></td>
+		<td></td>			
+		<td></td>			
+		<td></td>			
+		<td><label for="Choice1e">Strongly Agree</label></td>			
 		</tr>
 	</tbody></table>
 </div>
 <br>
-<div>
+<div>{{ preference_3  }}
 	<table><tbody>
-		<th>{{ preference_3  }}</th>
 		<tr>
-			<td><label for="Choice1">1</label></td>
-			<td><label for="Choice2">2</label></td>
-			<td><label for="Choice3">3</label></td>
-			<td><label for="Choice4">4</label></td>
-			<td><label for="Choice5">5</label></td>
+			<td><input type="radio" id="Choice3a" name="Choice3" value="1" /></td>
+			<td><input type="radio" id="Choice3b" name="Choice3" value="2" /></td>
+			<td><input type="radio" id="Choice3c" name="Choice3" value="3" /></td>
+			<td><input type="radio" id="Choice3d" name="Choice3" value="4" /></td>
+			<td><input type="radio" id="Choice3e" name="Choice3" value="5" /></td>
 		</tr>
 		<tr>
-			<td><input type="radio" id="Choice1" name="Choice1" value="1" /></td>
-			<td><input type="radio" id="Choice2" name="Choice2" value="2" /></td>
-			<td><input type="radio" id="Choice3" name="Choice3" value="3" /></td>
-			<td><input type="radio" id="Choice4" name="Choice4" value="4" /></td>
-			<td><input type="radio" id="Choice5" name="Choice5" value="5" /></td>
+			<td><label for="Choice3a">1</label></td>
+			<td><label for="Choice3b">2</label></td>
+			<td><label for="Choice3c">3</label></td>
+			<td><label for="Choice3d">4</label></td>
+			<td><label for="Choice3e">5</label></td>
+		</tr>
+		<tr>
+		<td><label for="Choice1a">Strongly Disagree</label></td>
+		<td></td>			
+		<td></td>			
+		<td></td>			
+		<td><label for="Choice1e">Strongly Agree</label></td>			
 		</tr>
 	</tbody></table>
-	<input type="submit" value="Add Your Preferences"
+	<input type="submit" value="Add Your Preferences">
 </form>
 </div>
 <br>
