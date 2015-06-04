@@ -1,93 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{{ purchased }}
 
 
 <h1>Tell us about your values</h1>
-<div>{{ preferences_list_1 }}
-<form action="/add_preferences/{{session.get('user_id')}}" method="GET">
+<form action="/add_preferences/{{ session['user_id'] }}" method="POST">
+{% for question in preferences_question_list %}
+<div>{{ question[1] }}</div>
 	<table><tbody>
 		<tr>
-			<td><input type="radio" id="Choice1a" name="Choice1" value="1" /></td>
-			<td><input type="radio" id="Choice1b" name="Choice1" value="2" /></td>
-			<td><input type="radio" id="Choice1c" name="Choice1" value="3" /></td>
-			<td><input type="radio" id="Choice1d" name="Choice1" value="4" /></td>
-			<td><input type="radio" id="Choice1e" name="Choice1" value="5" /></td>
-		</tr>
-		<tr>
-			<td><label for="Choice1a">1</label></td>
-			<td><label for="Choice1b">2</label></td>
-			<td><label for="Choice1c">3</label></td>
-			<td><label for="Choice1d">4</label></td>
-			<td><label for="Choice1e">5</label></td>
-		</tr>
-		<tr>
-		<td><label for="Choice1a">Strongly Disagree</label></td>
-		<td></td>			
-		<td></td>			
-		<td></td>			
-		<td><label for="Choice1e">Strongly Agree</label></td>			
-		</tr>
-	</tbody></table>
-</div>
-<br>
-{% if preferences_list_2 %}
-<div>{{ preferences_2 }}
-	<table><tbody>
-		<tr>
-			<td><input type="radio" id="Choice2a" name="Choice2" value="1" /></td>
-			<td><input type="radio" id="Choice2b" name="Choice2" value="2" /></td>
-			<td><input type="radio" id="Choice2c" name="Choice2" value="3" /></td>
-			<td><input type="radio" id="Choice2d" name="Choice2" value="4" /></td>
-			<td><input type="radio" id="Choice2e" name="Choice2" value="5" /></td>
-		</tr>
-		<tr>
-			<td><label for="Choice2a">1</label></td>
-			<td><label for="Choice2b">2</label></td>
-			<td><label for="Choice2c">3</label></td>
-			<td><label for="Choice2d">4</label></td>
-			<td><label for="Choice2e">5</label></td>
-		</tr>
-		<tr>
-		<td><label for="Choice1a">Strongly Disagree</label></td>
-		<td></td>			
-		<td></td>			
-		<td></td>			
-		<td><label for="Choice1e">Strongly Agree</label></td>			
-		</tr>
-	</tbody></table>
-</div>
-{% endif %}
-<br>
-{% if preferences_list_3 %}
-<div>{{ preferences_3 }}
-	<table><tbody>
-		<tr>
-			<td><input type="radio" id="Choice3a" name="Choice3" value="1" /></td>
-			<td><input type="radio" id="Choice3b" name="Choice3" value="2" /></td>
-			<td><input type="radio" id="Choice3c" name="Choice3" value="3" /></td>
-			<td><input type="radio" id="Choice3d" name="Choice3" value="4" /></td>
-			<td><input type="radio" id="Choice3e" name="Choice3" value="5" /></td>
-		</tr>
-		<tr>
-			<td><label for="Choice3a">1</label></td>
-			<td><label for="Choice3b">2</label></td>
-			<td><label for="Choice3c">3</label></td>
-			<td><label for="Choice3d">4</label></td>
-			<td><label for="Choice3e">5</label></td>
-		</tr>
-		<tr>
-		<td><label for="Choice1a">Strongly Disagree</label></td>
-		<td></td>			
-		<td></td>			
-		<td></td>			
-		<td><label for="Choice1e">Strongly Agree</label></td>			
-		</tr>
-	</tbody></table>
-{% endif %}
+			<td><input type="radio" name="{{ question[0] }}" value="1" />1 - Strongly Agree</td>
+			<td><input type="radio" name="{{ question[0] }}" value="2" />2</td>
+			<td><input type="radio" name="{{ question[0] }}" value="3" />3</td>
+			<td><input type="radio" name="{{ question[0] }}" value="4" />4</td>
+			<td><input type="radio" name="{{ question[0] }}" value="5" />5 - Strongly Disagree</td>
+		</tr>	</tbody></table>
 
-</div>
+{% endfor %}
 
 	<input type="submit" value="Add Your Preferences">
 </form>

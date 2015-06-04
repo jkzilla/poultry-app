@@ -8,7 +8,7 @@ from jinja2 import StrictUndefined
 from utils import user_search
 from datetime import datetime
 import requests
-import random
+from random import shuffle
 # import simplejson
 # import urllib2
 
@@ -176,7 +176,10 @@ def get_purchase_y_n():
 		)
 	db.session.add(purchase_activity)
 	db.session.commit()
-	
+	return redirect("/preference_questionnaire")
+
+@app.route("/preference_questionnaire")
+def get_user_session_answers():
 	preferences = { 
 	"preference1": "I prefer the least expensive option, always.",
 	"preference2": "I buy organic products.",
@@ -195,32 +198,42 @@ def get_purchase_y_n():
 	keys = ["preference1", "preference2", "preference3", "preference4", 
 	"preference5", "preference6", "preference7", "preference8", "preference9", "preference10"]
 
-	preferences_list = []
+	preferences_list_session_questions = []
+	
 	for key in keys:
-		user_preference = getattr(user, key)
-		if key is keys[-1]:
-			preferences_list.append(preferences[key])
-			return render_template("/user_input.html", purchased=purchased, preferences_list_1=preferences_list[0], preferences_list_2=None, preferences_list_3=None)
-		elif len(preferences_list) < 3:
-			if user_preference:
-				pass
-			else:
-				preferences_list.append(preferences[key])
-				if len(preferences_list) is 1:   	 
-					session["first_session_preference"] = key
-					print "first_session_preference"
-					print key
-				if len(preferences_list) is 2:
-					session["second_session_preference"] = key
-					print "second_session_preference"
-					print key
-				if len(preferences_list) is 3:
-					session["third_session_preference"] = key
-					print "third_session_preference"
-					print key
-				print preferences_list
-			return render_template("/user_input.html", purchased=purchased, preferences_list_1=preferences_list[0], preferences_list_2=preferences_list[1], preferences_list_3=preferences_list[2])
 
+		user_preference = getattr(user, key)
+		# user.preference1
+		print "User Preference: ", user_preference
+		session['pref'] = []
+		if user_preference:
+			print "HUH?", user_preference
+			continue
+		if not user_preference:
+			preferences_list_session_questions.append((key, preferences[key]))
+			
+	shuffle(preferences_list_session_questions)
+	rand_questions = preferences_list_session_questions[:3]		
+	for question in rand_questions:
+		session['pref'].append(question[0])
+	return render_template("/user_input.html", preferences_question_list=rand_questions)
+
+
+@app.route('/add_preferences/<int:user_id>', methods=['POST'])
+def add_user_preferences(user_id):
+
+	user = db.session.query(User).filter_by(user_id=session["user_id"]).one()
+
+	# take the information submited by the form for the preference questions
+	session_prefs = session.get("pref")
+	for pref in session_prefs:
+		pref_score = request.form.get(pref)
+		setattr(user, pref, pref_score)
+	db.session.commit()
+
+	search_activity = db.session.query(SearchActivity).filter_by(user_id=session["user_id"]).first()
+	print search_activity.search_query
+	return render_template('/user_profile.html', user=user, search_activity=search_activity)
 
 @app.route('/user_profile/<int:user_id>', methods=['GET'])
 def go_to_user_profile(user_id):
@@ -234,44 +247,6 @@ def go_to_user_profile(user_id):
 	print user
 	return render_template("user_profile.html", user=user)
 
-@app.route('/add_preferences/<int:user_id>', methods=['GET'])
-def add_user_preferences(user_id):
-	# take the information submited by the form for the preference questions
-	first_session_pref = session.get("first_session_preference")
-	# print first_pref ==> "preference1"
-	second_session_pref = session.get("second_session_preference")
-	third_session_pref = session.get("third_session_preference")
-	
-	user = db.session.query(User).filter_by(user_id=session["user_id"]).one()
-
-	# get the value input by name "Choice1" "Choice2" "Choice3"
-	first_pref_data = request.args.get("Choice1")
-	second_pref_data = request.args.get("Choice2")
-	third_pref_data = request.args.get("Choice3")
-	
-	if first_session_pref == "preference1": 
-		user.preference1 = first_pref_data
-		user.preference2 = second_pref_data
-		user.preference3 = third_pref_data
-
-	if first_session_pref == "preference4":
-		user.preference4 = first_pref_data
-		user.preference5 = second_pref_data
-		user.preference6 = third_pref_data
-
-	if first_session_pref == "preference7":
-		user.preference7 = first_pref_data
-		user.preference8 = second_pref_data
-		user.preference9 = third_pref_data
-
-	if first_session_pref == "preference10":
-		user.preference10 = first_pref_data
-
-	db.session.add(user)
-	db.session.commit()
-	search_activity = db.session.query(SearchActivity).filter_by(user_id=session["user_id"]).first()
-	print search_activity.search_query
-	return render_template('/user_profile.html', user=user, search_activity=search_activity)
 
 @app.route('/logout')
 def logout():
