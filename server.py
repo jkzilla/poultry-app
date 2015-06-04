@@ -9,8 +9,8 @@ from utils import user_search
 from datetime import datetime
 import requests
 from random import shuffle
-# import simplejson
-# import urllib2
+from sqlalchemy import func
+
 
 app = Flask(__name__)
 
@@ -198,11 +198,13 @@ def get_user_session_answers():
 			continue
 		# if the user has not answered the question
 		if not user_preference:
-			# this appends, to the session list, the key, eg preference1, and the preferences[key], eg the string of the question, "I live by a budget."
+			# this appends, to the session list, the key, eg preference1, and the preferences[key], eg the string of the question, "I live by a budget." This is a list of every unanswered question
 			preferences_list_session_questions.append((key, preferences[key]))
-			
+	# in order to create a random question set, the session preference are shuffled
 	shuffle(preferences_list_session_questions)
+	# and three or less questions are chosen, less if the user has answered most of the questions
 	rand_questions = preferences_list_session_questions[:3]		
+	
 	for question in rand_questions:
 		session['pref'].append(question[0])
 	return render_template("/user_input.html", preferences_question_list=rand_questions)
@@ -221,7 +223,8 @@ def add_user_preferences(user_id):
 	db.session.commit()
 
 	search_activity = db.session.query(SearchActivity).filter_by(user_id=session["user_id"]).first()
-	print search_activity.search_query
+	# print search_activity.search_query
+
 	return render_template('/user_profile.html', user=user, search_activity=search_activity)
 
 @app.route('/user_profile/<int:user_id>', methods=['GET'])
@@ -234,7 +237,11 @@ def go_to_user_profile(user_id):
 	user_id = session.get("user_id")
 	user = User.query.filter_by(user_id=user_id).first()
 	print user
-	return render_template("user_profile.html", user=user)
+	search_activity = db.session.query(SearchActivity.search_query, func.count(SearchActivity.search_query)).group_by(SearchActivity.search_query).all()
+	search_activity_two_lst = [[item_name.encode('ascii', 'ignore') for item_name, count in search_activity], [count for item_name, count in search_activity]]
+	print search_activity_two_lst
+
+	return render_template("user_profile.html", user=user, search_activity_two_lst=search_activity_two_lst)
 
 
 @app.route('/logout')

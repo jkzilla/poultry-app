@@ -28,38 +28,30 @@
 	<li><div>Preference 9</div>{{ user.preference9 }}</li>
 	<li><div>Preference 10</div>{{ user.preference10 }}</li>
 
-<canvas id="myChart" width="600" height="600"></canvas>
+<canvas id="myChart" width="600" height="600" data-search="{{ search_activity_two_lst[0] }}" data-counts="{{ search_activity_two_lst[1] }}"></canvas>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.js"></script>
 <script>
+	var ctx = document.getElementById("myChart").getContext("2d");
+
 	var data = {
-		labels: "Preference 1"
+		labels: ctx.canvas.dataset.search,
 		datasets: [
-			{label: "User Preferences",
-			fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [1]
-            ]
-		}
-		{
-		labels: "Search Query"
-			datasets: ["Search Query"]
- 			fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [1]
-		}
-	}
-	var ctx = document.getElementbyId("myChart").getContext("2d");
-	var myNewChart = new Chart(ctx).Line(data);
-	Chart.defaults.global.responsive = true;
-	new Chart(ctx).PolarArea(data, options)
+			{
+				label: "User Preferences",
+				fillColor: "rgba(220,220,220,0.2)",
+	            strokeColor: "rgba(220,220,220,1)",
+	            pointColor: "rgba(220,220,220,1)",
+	            pointStrokeColor: "#fff",
+	            pointHighlightFill: "#fff",
+	            pointHighlightStroke: "rgba(220,220,220,1)",
+	            data: ctx.canvas.dataset.counts
+           
+			}
+		]
+	};
+	var myNewChart = new Chart(ctx).Bar(data);
+	// myNewChart.defaults.global.responsive = true;
+	// new Chart(ctx).PolarArea(data, options)
 </script>
 </ul>
- {% endblock %}
+{% endblock %}
