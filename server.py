@@ -67,17 +67,6 @@ def post_reg_info_to_db():
 		flash("You are now logged in")
 		return render_template("/nowsearch.html", user=user_table_values)
 
-# @app.route('/search')
-# def search_walmart():
-# 	"""This search returns Walmart API Search Items"""
-# 	search_wm_items = request.args.get('search')
-
-
-
-# 	results = user_search(search)
-# 	json_results = jsonify(results)
-# 	return json_results
-
 @app.route('/getresults', methods=['GET'])
 def show_results():
 
@@ -129,8 +118,6 @@ def show_results():
 	# [{'price': 2.50, 'color': 'red'}]			
 	return render_template("searchresults.html", found_items=found_items)
 
-#make a route with the lookup api. This route takes the item[item_id] from searchresults.html, and passes it
-# to the lookup ap
 @app.route('/brand-detail/<item_id>', methods=['GET'])
 def lookup_api(item_id):
 	# get item id from HTTP address
@@ -201,15 +188,17 @@ def get_user_session_answers():
 	preferences_list_session_questions = []
 	
 	for key in keys:
-
+		# this sets user.preference1, sqlalchemy will not take user.key with a key variable
 		user_preference = getattr(user, key)
-		# user.preference1
-		print "User Preference: ", user_preference
+		
+		# creating a list of the random preferences that were presented to the user during this particular session that will be saved to the session for access later
 		session['pref'] = []
+		# if the user has answered the question
 		if user_preference:
-			print "HUH?", user_preference
 			continue
+		# if the user has not answered the question
 		if not user_preference:
+			# this appends, to the session list, the key, eg preference1, and the preferences[key], eg the string of the question, "I live by a budget."
 			preferences_list_session_questions.append((key, preferences[key]))
 			
 	shuffle(preferences_list_session_questions)

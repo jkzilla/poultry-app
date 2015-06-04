@@ -11,12 +11,9 @@ from flask import Flask, render_template, redirect, request, flash, session, jso
 api_key = "qb5mmbrawdsnnr74yqc6sn8q"
 
 
-# May 12
-# Need to find chicken meat categoryId to feed to Search API in order to
-# find all human food chicken products on the walmart website
-
-
 dict_of_product_ids = {}
+
+
 
 def user_search(search_term):
 	"""This is the function that passes the user search term to the Walmart API"""	
@@ -38,3 +35,14 @@ def get_lookup(item_id):
 		print "I need a categoryNode"
 	pprint(taxonomy_dict)
 
+
+# @app.route('/search')
+# def search_walmart():
+# 	"""This search returns Walmart API Search Items"""
+# 	search_wm_items = request.args.get('search')
+
+
+
+# 	results = user_search(search)
+# 	json_results = jsonify(results)
+# 	return json_results
