@@ -35,16 +35,17 @@
 
 {% if brand.brand_conventional %}
 <h2> Conventional </h2>
-
+{{ conventional_farm_info }}
 {% endif %}
 {% if brand.brand_organic %}
 <h2>Organic</h2>
+{{ organic_farm_info }}
 {% endif %}
 
 {% if brand.brand_free_range %}
 <h2>Free Range</h2>
 
-
+{{ poultry_farming_wiki_all }}
 {% endif %}
 
 
@@ -52,6 +53,9 @@
 <h2>Pastured</h2>
 
 {% endif %}
+
+<h2>The Whole Shebang</h2>
+{{ poultry_farming_wiki_all }}
 
 
 {% endblock %}

@@ -10,7 +10,7 @@ from datetime import datetime
 import requests
 from random import shuffle
 from sqlalchemy import func
-
+import wikipedia
 
 app = Flask(__name__)
 
@@ -32,7 +32,7 @@ def login():
 
 	if user:
 		session["user_id"] = user.user_id
-		print user.user_id
+		# print user.user_id
 		flash("You are now logged in")
 		
 
@@ -60,7 +60,7 @@ def post_reg_info_to_db():
 
 	db.session.commit()
 
-	print user_table_values.user_id
+	# print user_table_values.user_id
 	session["user_id"] = user_table_values.user_id
 	
 	if user_table_values:
@@ -74,13 +74,13 @@ def show_results():
 
 	user_query = request.args.get("search")
 	# user = session.get("name")
-	print user_query
+	# print user_query
 	search_activity = SearchActivity(user_id=session.get('user_id'), search_query=user_query, datetime = datetime.now())
 
 	db.session.add(search_activity)
 	db.session.commit()
-	print search_activity.query_id
-	print search_activity.search_query
+	# print search_activity.query_id
+	# print search_activity.search_query
 	search_items_not_filtered_list = user_search(user_query)
 	found_items = []
 	
@@ -98,7 +98,7 @@ def show_results():
 		for obj in Taxonomy_obj:
 			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
 			# print obj
-			print item[u'thumbnailImage']
+			# print item[u'thumbnailImage']
 			if item[u'categoryNode'] == obj.category_node:
 				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
 				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
@@ -120,28 +120,38 @@ def show_results():
 
 @app.route('/brand-detail/<item_id>', methods=['GET'])
 def lookup_api(item_id):
-	# get item id from HTTP address
-	# print item_id
+
 	# # passes item id to lookup api
 	product_wm_api = requests.get('http://api.walmartlabs.com/v1/items/' + item_id + '?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q')
+
 	session["item_id"] = item_id
-	# # creates json object
+
 	product_info = product_wm_api.json()
+
 	# returns brandName of product info in json object
 	item_brand = product_info['brandName']
+
 	# print item_brand this prints out as Great Value
+
 	# print type(item_brand) this is a unicode object
+
 	# takes brandName, accesses 'brands' table 
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
-# if you search for a brand you dont find, make condition to show that it doesn't have info
 
-	print brand_info.brand_conventional
+	# if you search for a brand you dont find, make condition to show that it doesn't have info
+	if AttributeError:
+		flash("Please contact your local Walmart and ask this brand to participate in our program!")		
 	session['conventional'] = brand_info.brand_conventional 
 	session['organic'] = brand_info.brand_organic
 	session['free_range'] = brand_info.brand_free_range
 	session['pastured'] = brand_info.brand_pastured
+# this imports the wikipedia api
 
-	return render_template('/brand-detail.html', brand=brand_info)
+	poultry_farming_info = wikipedia.page("poultry farming")
+	poultry_farming_wiki_all = poultry_farming_info.content
+	conventional_farm_info = poultry_farming_info.section("Intensive and alternative poultry farming")
+	organic_farm_info = poultry_farming_info.section("==== Organic ====")
+	return render_template('/brand-detail.html', brand=brand_info, conventional_farm_info=conventional_farm_info, organic_farm_info=organic_farm_info, poultry_farming_wiki_all=poultry_farming_wiki_all)
 
 @app.route('/product_approval', methods=['GET'])
 def get_purchase_y_n():
@@ -227,6 +237,22 @@ def add_user_preferences(user_id):
 
 	return render_template('/user_profile.html', user=user, search_activity=search_activity)
 
+# @app.route('/user_profile/<int:user_id>', methods=['GET'])
+# def go_to_user_profile(user_id):
+
+# 	if 'user_id' not in session:
+# 		return render_template("/index.html")
+# 	# to go to the user profile you have to access the session user id and look that up in the db
+
+# 	user_id = session.get("user_id")
+# 	user = User.query.filter_by(user_id=user_id).first()
+# 	print user
+# 	search_activity = db.session.query(SearchActivity.search_query, func.count(SearchActivity.search_query)).group_by(SearchActivity.search_query).all()
+# 	search_activity_two_lst = [[item_name.encode('ascii', 'ignore') for item_name, count in search_activity], [count for item_name, count in search_activity]]
+# 	print search_activity_two_lst
+
+# 	return render_template("user_profile.html", user=user, search_activity_two_lst=search_activity_two_lst)
+
 @app.route('/user_profile/<int:user_id>', methods=['GET'])
 def go_to_user_profile(user_id):
 
@@ -238,12 +264,30 @@ def go_to_user_profile(user_id):
 	user = User.query.filter_by(user_id=user_id).first()
 	print user
 	search_activity = db.session.query(SearchActivity.search_query, func.count(SearchActivity.search_query)).group_by(SearchActivity.search_query).all()
+
+	list_of_dict = []
+
+
+
 	search_activity_two_lst = [[item_name.encode('ascii', 'ignore') for item_name, count in search_activity], [count for item_name, count in search_activity]]
-	print search_activity_two_lst
+	print search_activity_two_lst[0]
+	print search_activity_two_lst[1]
+	data = {}
+	datasets_dict = {}
+	datasets_dict['label'] = "Search Activity"
+	datasets_dict['fillColor'] = "rgba(220,220,220,0.5)"
+	datasets_dict['strokeColor'] = "rgba(220,220,220,0.8)"
+	datasets_dict['highlightFill'] = "rgba(220,220,220,0.75)"
+	datasets_dict['highlightStroke'] = "rgba(220,220,220,1)"
+	datasets_dict['data'] =search_activity_two_lst[1]
+	data['labels'] = search_activity_two_lst[0]
+	data['datasets'] = [datasets_dict]
+ 
 
-	return render_template("user_profile.html", user=user, search_activity_two_lst=search_activity_two_lst)
+	list_of_dict.append(data)
+	print list_of_dict 	
 
-
+	return render_template("user_profile.html", user=user, data=data)
 @app.route('/logout')
 def logout():
 	del session["user_id"]

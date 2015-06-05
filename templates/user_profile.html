@@ -27,31 +27,20 @@
 	<li><div>Preference 8</div>{{ user.preference8 }}</li>
 	<li><div>Preference 9</div>{{ user.preference9 }}</li>
 	<li><div>Preference 10</div>{{ user.preference10 }}</li>
+</ul>
 
-<canvas id="myChart" width="600" height="600" data-search="{{ search_activity_two_lst[0] }}" data-counts="{{ search_activity_two_lst[1] }}"></canvas>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.js"></script>
+
+
+<canvas id="myChart" width="750" height="auto"></canvas>
+
 <script>
 	var ctx = document.getElementById("myChart").getContext("2d");
 
-	var data = {
-		labels: ctx.canvas.dataset.search,
-		datasets: [
-			{
-				label: "User Preferences",
-				fillColor: "rgba(220,220,220,0.2)",
-	            strokeColor: "rgba(220,220,220,1)",
-	            pointColor: "rgba(220,220,220,1)",
-	            pointStrokeColor: "#fff",
-	            pointHighlightFill: "#fff",
-	            pointHighlightStroke: "rgba(220,220,220,1)",
-	            data: ctx.canvas.dataset.counts
-           
-			}
-		]
-	};
-	var myNewChart = new Chart(ctx).Bar(data);
-	// myNewChart.defaults.global.responsive = true;
-	// new Chart(ctx).PolarArea(data, options)
+	var data = {{ data | tojson | safe }};
+	var myNewChart = new Chart(ctx).Bar(data, {scaleOverride: true, scaleStartValue: 0, scaleStepWidth: 1, scaleSteps: 20});
+	// Chart.defaults.global.responsive = true;
 </script>
-</ul>
+
+
+
 {% endblock %}

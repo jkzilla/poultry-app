@@ -76,7 +76,7 @@ def seed_brand_info():
 		"brand_google_plus": None,
 		"brand_pintrest": None,
 		"brand_conventional": True,
-		"brand_organic": False,
+		"brand_organic": True,
 		"brand_free_range": False,
 		"brand_pastured": False,
 		"slow_growth": False,
