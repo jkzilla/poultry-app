@@ -16,9 +16,7 @@ body {
 
 /* use special fonts in certain elements */
 h1,h2,h3,h4,.lead,.btn,.navbar a {
-  text-transform:uppercase;
-  font-family:'Voltaire',Arial,sans-serif;
-  letter-spacing:2px;
+  font-family:'Myriad',Arial,sans-serif;
 }
 
 h1 {

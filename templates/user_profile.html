@@ -37,8 +37,7 @@
 	var ctx = document.getElementById("myChart").getContext("2d");
 
 	var data = {{ data | tojson | safe }};
-	var myNewChart = new Chart(ctx).Bar(data, {scaleOverride: true, scaleStartValue: 0, scaleStepWidth: 1, scaleSteps: 20});
-	// Chart.defaults.global.responsive = true;
+	var myNewChart = new Chart(ctx).Bar(data);
 </script>
 
 

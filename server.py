@@ -10,7 +10,9 @@ from datetime import datetime
 import requests
 from random import shuffle
 from sqlalchemy import func
-import wikipedia
+from bs4 import BeautifulSoup
+import urllib2
+import urllib
 
 app = Flask(__name__)
 
@@ -21,6 +23,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
 	"""Homepage."""
+	print session
 	return render_template("index.html")
 
 @app.route('/login', methods=['POST'])
@@ -54,8 +57,18 @@ def post_reg_info_to_db():
 	name = request.form.get("firstname")
 	email = request.form.get("email")
 	password = request.form.get("password")
+	gender = request.form.get("gender")
+	halal = request.form.get("halal")
+	free_range = request.form.get("free_range")
+	slow_growth = request.form.get("slow_growth")
+	pastured = request.form.get("pastured")
+	non_gmo = request.form.get("non_gmo")
+	antibiotics = request.form.get("antibiotics")
+	organic_100 = request.form.get("organic")
+	organic_95 = request.form.get("organic_95")
+	price = request.form.get("price")
 
-	user_table_values = User(name=name, email=email, password=password)
+	user_table_values = User(name=name, email=email, password=password, gender=gender, halal=halal, free_range=free_range, slow_growth=slow_growth, pastured=pastured, non_gmo=non_gmo, antibiotics=antibiotics, organic_100=organic_100, organic_95=organic_95, price=price)
 	db.session.add(user_table_values)
 
 	db.session.commit()
@@ -145,12 +158,25 @@ def lookup_api(item_id):
 	session['organic'] = brand_info.brand_organic
 	session['free_range'] = brand_info.brand_free_range
 	session['pastured'] = brand_info.brand_pastured
-# this imports the wikipedia api
 
-	poultry_farming_info = wikipedia.page("poultry farming")
-	poultry_farming_wiki_all = poultry_farming_info.content
-	conventional_farm_info = poultry_farming_info.section("Intensive and alternative poultry farming")
-	organic_farm_info = poultry_farming_info.section("==== Organic ====")
+	# opening wiki
+
+	url = "http://en.wikipedia.org/wiki/Poultry_farming"
+	poultry_wiki_pg = "Poultry Farming"
+	poultry_wiki_pg = urllib.quote(poultry_wiki_pg)
+	opener = urllib2.build_opener()
+	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+
+	poultry_wiki_resource = opener.open(url)
+
+	poultry_wiki_data = poultry_wiki_resource.read()
+	poultry_wiki_resource.close()
+	# Begin BeautifulSoup and Wikipedia
+	soup = BeautifulSoup(poultry_wiki_data)
+	poultry_farming_wiki_all = soup.find('div', id="bodyContent")
+	conventional_farm_info = None
+	organic_farm_info = None
+
 	return render_template('/brand-detail.html', brand=brand_info, conventional_farm_info=conventional_farm_info, organic_farm_info=organic_farm_info, poultry_farming_wiki_all=poultry_farming_wiki_all)
 
 @app.route('/product_approval', methods=['GET'])
@@ -290,7 +316,16 @@ def go_to_user_profile(user_id):
 	return render_template("user_profile.html", user=user, data=data)
 @app.route('/logout')
 def logout():
-	del session["user_id"]
+	del session['user_id']
+	del session['organic']
+	del session['pastured']
+	del session['item_id']
+	del session['free_range']
+	del session['conventional']
+
+
+
+
 	return render_template("/index.html")
 
 

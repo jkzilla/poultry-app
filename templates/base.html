@@ -13,16 +13,17 @@
  
 	<!-- This is link to jquery -->
 	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.js"></script>
 </head>
 <body>
-	{% if session %}
+	{% if 'user_id' in session %}
 	<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
 	<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
 	</form>
 	{% endif %}
 
-	{% if session %}
-	<form action="/" method="GET">
+	{% if 'user_id' in session %}
+	<form action="/logout" method="GET">
 	<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
 	</form>
 	
