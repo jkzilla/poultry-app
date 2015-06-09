@@ -193,6 +193,7 @@ def seed_brand_info():
 		brand_name = dict_item['brand_name'],
 		parent_company = dict_item['parent_company'],
 		brand_website = dict_item['brand_website'],
+		brand_facebook = dict_item['brand_facebook'],
 		brand_youtube = dict_item['brand_youtube'],
 		brand_instagram = dict_item['brand_instagram'],
 		brand_twitter = dict_item['brand_twitter'],

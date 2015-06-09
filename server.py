@@ -6,7 +6,7 @@ from werkzeug.utils import unescape
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Taxonomy, Brand, SearchActivity, PurchaseActivity
 from jinja2 import StrictUndefined
-from utils import user_search, moneyfmt
+from utils import user_search
 from datetime import datetime
 import requests
 from random import shuffle
@@ -44,10 +44,56 @@ def login():
 		flash("Invalid Login, please try again or register using the registration button below")
 		return render_template("/index.html")
 
+@app.route('/nowsearch', methods=['GET'])
+def go_to_search():
+	"""Sends user to search"""
+	user_id = session.get("user_id")
+	user = User.query.filter_by(user_id=user_id).first()
+
+	return render_template("/nowsearch.html", user=user)
+
+
+@app.route('/dashboard', methods=['GET'])
+def go_to_dashboard():
+	"""Sends user to dashboard"""
+	return render_template("/dashboard.html")
+
 @app.route('/register', methods=['GET'])
 def send_to_regist():
 	"""Sends user to registration"""
 	return render_template("/registration.html")
+
+@app.route('/dashboard')
+def send_to_dashboard():
+	"""Sends user to dashboard"""
+	# purchased and conventional
+	purchase_activity_conv = db.session.query(PurchaseActivity).filter_by(purchased=True, conventional=True).all()
+	# purchased and organic
+	purchase_activity_organic = db.session.query(PurchaseActivity).filter_by(purchased=True, organic=True).all()
+	# search activity 
+	search_activity = db.session.query(SearchActivity).all()
+
+	# plot search_activity over time and purchase_activity over time
+
+	list_of_dict = []
+
+
+	data = {}
+	datasets_dict = {}
+	datasets_dict['label'] = "Search Activity, Items Purchased over Time"
+	datasets_dict['fillColor'] = "rgba(220,220,220,0.5)"
+	datasets_dict['strokeColor'] = "rgba(220,220,220,0.8)"
+	datasets_dict['highlightFill'] = "rgba(220,220,220,0.75)"
+	datasets_dict['highlightStroke'] = "rgba(220,220,220,1)"
+	datasets_dict['data'] =search_activity, purchase_activity_organic, purchase_activity_conv
+	data['labels'] = time
+	data['datasets'] = [datasets_dict]
+ 
+
+	list_of_dict.append(data)
+	print list_of_dict 	
+
+	return render_template("/dashboard.html")
 
 
 @app.route('/submitregistrationtodb', methods=['POST'])
@@ -152,7 +198,7 @@ def lookup_api(item_id):
 	# takes brandName, accesses 'brands' table 
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
 
-	# if you search for a brand you dont find, make condition to show that it doesn't have info
+		# if you search for a brand you dont find, make condition to show that it doesn't have info
 	# except AttributeError:
 	# 	flash("Please contact your local Walmart and ask this brand to participate in our program!")		
 	session['conventional'] = brand_info.brand_conventional 
@@ -338,14 +384,6 @@ def go_to_user_profile(user_id):
 @app.route('/logout')
 def logout():
 	del session['user_id']
-	del session['organic']
-	del session['pastured']
-	del session['item_id']
-	del session['free_range']
-	del session['conventional']
-
-
-
 
 	return render_template("/index.html")
 

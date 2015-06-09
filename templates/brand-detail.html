@@ -6,17 +6,21 @@
 	<h3>Parent company: {{ brand.parent_company }}</h3>
 	{% endif %}
 
-	<li><a href="{{ brand.brand_website }}"><span class="glyphicon glyphicon-home"></span></a></li>
-	<li>{{ brand.brand_youtube }}</li>
-	<li>{{ brand.brand_instagram }}</li>
-	<li>{{ brand.brand_twitter }}</li>
+	<li><a href="{{ brand.brand_website }}"><span class="glyphicon glyphicon-home">{{ brand.brand_name}}</span></a></li>
+	{% if brand.brand_facebook %}
+	<li><a href="{{ brand.brand_facebook }}"><img src="static/img/facebook.svg"></a></li>
+	{% endif %}
+	<li><a href="{{ brand.brand_youtube }}"><img src="static/img/youtube.svg"</a></li>
+
+	<li><a href="{{ brand.brand_instagram }}"><img src="static/img/instagram.svg"></a></li>
+	<li><a href="{{ brand.brand_twitter }}"></a></li>
 
 	{% if brand.brand_pintrest %}
-	<li>{{ brand.brand_pintrest }}</li>
+	<li><a href="{{ brand.brand_pintrest }}"><img src="static/img/pintrest.svg"></a></li>
 	{% endif %}
 
 	{% if brand.brand_google_plus %}
-	<li>{{ brand.brand_google_plus }}</li>
+	<li><a href="{{ brand.brand_google_plus }}"><img src="static/img/google_plus.svg"></a></li>
 	{% endif %}
 
 </ul>
@@ -32,7 +36,14 @@
 
 {% if brand.brand_conventional %}
 <h2> Conventional </h2>
-{{ conventional_farm_info }}
+<h3>{{ conventional_farm_info[0] }}</h3><br/><br/>
+<p>{{ conventional_farm_info[1] }}</p>
+<p>{{ conventional_farm_info[2] }}</p>
+<p>{{ conventional_farm_info[3] }}</p>
+<p>{{ conventional_farm_info[4] }}</p>
+<p>{{ conventional_farm_info[5] }}</p>
+<p>{{ conventional_farm_info[6] }}</p>
+<p>{{ conventional_farm_info[7] }}</p>
 {% endif %}
 
 {% if brand.brand_organic %}

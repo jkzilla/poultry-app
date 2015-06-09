@@ -82,6 +82,7 @@ class Brand(db.Model):
 	parent_company = db.Column(db.String(64))
 	brand_website = db.Column(db.String(64), nullable=False)
 	brand_youtube = db.Column(db.String(64))
+	brand_facebook = db.Column(db.String(64))
 	brand_instagram = db.Column(db.String(64))
 	brand_twitter = db.Column(db.String(64))
 	brand_pintrest = db.Column(db.String(64))

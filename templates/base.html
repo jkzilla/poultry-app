@@ -19,9 +19,9 @@
 		<div class="container-fluid">
 		<ul class="nav nav-pills list-inline">
 
-				<li><a href="/index.html" class="active">Poultry Watch</a></Sli>
+				<li><a href="{{ url_for('go_to_search') }}" class="active">Poultry Watch</a></li>
 		
-				<li><a href="#" class="active">Dashboard</a></li>
+				<li><a href="{{ url_for('go_to_dashboard') }}" class="active">Dashboard</a></li>
 				
 
 				{% if 'user_id' in session %}
