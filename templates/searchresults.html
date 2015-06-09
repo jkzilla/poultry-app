@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>These are the search results</h1>
+<h3>Search Results</h3>
 
-<ul> {% for item in found_items %}
-	<li><a href="/brand-detail/{{ item['item_id'] }}" action="/brand-detail">{{ item.name }} {{ item.category }} {{ item.item_id }} {{ item.sale_price }} {{ item.description }} {{ item.customer_rating_img }} {{ item.thumbnail_image }}</a></li>
-	{% endfor %}
+<ul class="list-unstyled"> {% for item in found_items %}
+
+			<a href="/brand-detail/{{ item['item_id'] }}" action="/brand-detail">
+				<li><div class="panel panel-default">
+					<div class="panel-body">
+						
+							<img src="{{ item.thumbnail_image }}" align="left">
+							<h2>{{ item.name }}</h2> 
+							<img src="{{ item.customer_rating_img }}"> <br/>
+							<h4>{{ item.category }}</h4> <h4>id: {{ item.item_id }}</h4> 
+							
+							<h4>${{ item.sale_price }}</h4>
+							{{ item.description|safe }} 
+						</a>
+					</div>
+				</div>
+			</li></a>
+
+			{% endfor %}
+		
 </ul>
 
 <script>

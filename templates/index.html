@@ -2,26 +2,39 @@
 {% block content %}
 
 <div class="container-fluid">
-<p>A communication platform between consumers, their local Walmart, and the farms. We help grocery and poultry farms understand the consumers they provide for.</p>
 
-<form action="/login" method="POST">
+	<div class="row">
 
-<label>Sign in</label><br>
-	<label>Email</label><br>
-	<input type="text" name="email"><br>
-	<label>Password</label><br>
-	<input type="text" name="password"><br>
-	<input	type="submit" name="Sign in"><br>
+		<div class="col-md-6">	
+	
+		<p>A communication platform between consumers, their local Walmart, and farms.<br/>
+		We help grocery and farms understand the consumers they provide for.</p>
+		</div>
+		<div class="col-md-6 index-divider">
+		<form action="/login" method="POST">
 
-</form>
+			<label>Sign in</label><br>
+			
+			<label>Email</label><br>
+			<input type="text" name="email"><br>
+			
+			<label>Password</label><br>
+			<input type="text" name="password"><br>
+			
+			<input	type="submit" name="Sign in"><br>
+
+		</form>
 
 
-<form action="/register" method="GET">
+		<form action="/register" method="GET">
 
-    <label>Register as a new user</label>
-    <br>
-    <input type="submit" class="btn btn-primary btn-lg" value="Take me to registration!">
-</form>
-<br>
+		    <label>Register as a new user</label>
+		    <br>
+		    <input type="submit" class="btn btn-primary btn-lg" value="Take me to registration!">
+		</form>
+		<br>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}

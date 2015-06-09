@@ -1,0 +1,20 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Welcome to our general dashboard page</h2>
+
+Our user base preferences vs purchase activity
+
+<canvas id="myChart" width="750" height="auto"></canvas>
+
+<script>
+	var ctx = document.getElementById("myChart").getContext("2d");
+
+	var data = {{ data | tojson | safe }};
+	var myNewChart = new Chart(ctx).Bar(data);
+</script>
+
+
+{% endblock %}

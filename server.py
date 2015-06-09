@@ -2,17 +2,17 @@
 # from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify, json
+from werkzeug.utils import unescape
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Taxonomy, Brand, SearchActivity, PurchaseActivity
 from jinja2 import StrictUndefined
-from utils import user_search
+from utils import user_search, moneyfmt
 from datetime import datetime
 import requests
 from random import shuffle
 from sqlalchemy import func
 from bs4 import BeautifulSoup
 import urllib2
-import urllib
 
 app = Flask(__name__)
 
@@ -113,14 +113,15 @@ def show_results():
 			# print obj
 			# print item[u'thumbnailImage']
 			if item[u'categoryNode'] == obj.category_node:
+	
 				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
 				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
 				found_items.append({
 					"name": item.get(u'name', ""), 
 					"item_id": item.get(u'itemId', ""),
 					"category": item.get(u'categoryPath', ""), 
-					"sale_price": item.get(u'salePrice', ""), 
-					"description": item.get(u'shortDescription', ""), 
+					"sale_price": format(item.get(u'salePrice', ""), ".2f"), 
+					"description": unescape(item.get(u'shortDescription', "")), 
 					# when I run server.py I receive a KeyError: u'ShortDescription'
 					"customer_rating_img": item.get(u'customerRatingImage', ""),
 					"thumbnail_image": item.get(u'thumbnailImage', "")
@@ -152,8 +153,8 @@ def lookup_api(item_id):
 	brand_info = db.session.query(Brand).filter_by(brand_name=item_brand).first()
 
 	# if you search for a brand you dont find, make condition to show that it doesn't have info
-	if AttributeError:
-		flash("Please contact your local Walmart and ask this brand to participate in our program!")		
+	# except AttributeError:
+	# 	flash("Please contact your local Walmart and ask this brand to participate in our program!")		
 	session['conventional'] = brand_info.brand_conventional 
 	session['organic'] = brand_info.brand_organic
 	session['free_range'] = brand_info.brand_free_range
@@ -162,8 +163,6 @@ def lookup_api(item_id):
 	# opening wiki
 
 	url = "http://en.wikipedia.org/wiki/Poultry_farming"
-	poultry_wiki_pg = "Poultry Farming"
-	poultry_wiki_pg = urllib.quote(poultry_wiki_pg)
 	opener = urllib2.build_opener()
 	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
@@ -173,11 +172,27 @@ def lookup_api(item_id):
 	poultry_wiki_resource.close()
 	# Begin BeautifulSoup and Wikipedia
 	soup = BeautifulSoup(poultry_wiki_data)
-	poultry_farming_wiki_all = soup.find('div', id="bodyContent")
-	conventional_farm_info = None
+
 	organic_farm_info = None
 
-	return render_template('/brand-detail.html', brand=brand_info, conventional_farm_info=conventional_farm_info, organic_farm_info=organic_farm_info, poultry_farming_wiki_all=poultry_farming_wiki_all)
+	conventional_farm_info = []
+	title = soup.find('span', id="Meat-producing_chickens_-_husbandry_systems").parent
+	print title
+	title_conv = title.text.rstrip("[edit]")
+	conventional_farm_info.append(title_conv)
+	nextNode = title
+	while True:
+		nextNode = nextNode.next_sibling
+		print nextNode
+		try:
+			tag_name = nextNode.name
+		except AttributeError:
+			tag_name = ""
+		if tag_name == "p":
+			conventional_farm_info.append(nextNode.text)
+		elif tag_name == 'h2':
+			break
+	return render_template('/brand-detail.html', brand=brand_info, conventional_farm_info=conventional_farm_info, organic_farm_info=organic_farm_info)
 
 @app.route('/product_approval', methods=['GET'])
 def get_purchase_y_n():
@@ -258,26 +273,32 @@ def add_user_preferences(user_id):
 		setattr(user, pref, pref_score)
 	db.session.commit()
 
-	search_activity = db.session.query(SearchActivity).filter_by(user_id=session["user_id"]).first()
+	search_activity = db.session.query(SearchActivity.search_query, func.count(SearchActivity.search_query)).group_by(SearchActivity.search_query).all()
 	# print search_activity.search_query
 
-	return render_template('/user_profile.html', user=user, search_activity=search_activity)
+	list_of_dict = []
 
-# @app.route('/user_profile/<int:user_id>', methods=['GET'])
-# def go_to_user_profile(user_id):
 
-# 	if 'user_id' not in session:
-# 		return render_template("/index.html")
-# 	# to go to the user profile you have to access the session user id and look that up in the db
 
-# 	user_id = session.get("user_id")
-# 	user = User.query.filter_by(user_id=user_id).first()
-# 	print user
-# 	search_activity = db.session.query(SearchActivity.search_query, func.count(SearchActivity.search_query)).group_by(SearchActivity.search_query).all()
-# 	search_activity_two_lst = [[item_name.encode('ascii', 'ignore') for item_name, count in search_activity], [count for item_name, count in search_activity]]
-# 	print search_activity_two_lst
+	search_activity_two_lst = [[item_name.encode('ascii', 'ignore') for item_name, count in search_activity], [count for item_name, count in search_activity]]
+	print search_activity_two_lst[0]
+	print search_activity_two_lst[1]
+	data = {}
+	datasets_dict = {}
+	datasets_dict['label'] = "Search Activity"
+	datasets_dict['fillColor'] = "rgba(220,220,220,0.5)"
+	datasets_dict['strokeColor'] = "rgba(220,220,220,0.8)"
+	datasets_dict['highlightFill'] = "rgba(220,220,220,0.75)"
+	datasets_dict['highlightStroke'] = "rgba(220,220,220,1)"
+	datasets_dict['data'] =search_activity_two_lst[1]
+	data['labels'] = search_activity_two_lst[0]
+	data['datasets'] = [datasets_dict]
+ 
 
-# 	return render_template("user_profile.html", user=user, search_activity_two_lst=search_activity_two_lst)
+	list_of_dict.append(data)
+	print list_of_dict 	
+
+	return render_template('user_profile.html', user=user, data=data)
 
 @app.route('/user_profile/<int:user_id>', methods=['GET'])
 def go_to_user_profile(user_id):

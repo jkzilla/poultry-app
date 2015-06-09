@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>This is the brand detail page</h1>
-<!-- <!- add relevant info -->
-<ul>
-	<li>{{ brand.brand_name }}</li>
+<h1>{{ brand.brand_name }}</h1>
 	{% if brand.parent_company %}
-	<li>{{ brand.parent_company }}</li>
+	<h3>Parent company: {{ brand.parent_company }}</h3>
 	{% endif %}
 
-	<li><a href="{{ brand.brand_website }}">{{ brand.brand_website }}</a></li>
+	<li><a href="{{ brand.brand_website }}"><span class="glyphicon glyphicon-home"></span></a></li>
 	<li>{{ brand.brand_youtube }}</li>
 	<li>{{ brand.brand_instagram }}</li>
 	<li>{{ brand.brand_twitter }}</li>
@@ -54,9 +51,6 @@
 <h2>Pastured</h2>
 
 {% endif %}
-
-<h2>The Whole Shebang</h2>
-{{ poultry_farming_wiki_all }}
 
 
 {% endblock %}
