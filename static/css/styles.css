@@ -1,3 +1,49 @@
 .index-divider {
   border-left: solid 1px black;
 }
+
+.icons {
+  max-height: 14px;
+}
+
+/*ul.oneline li{
+  width: auto;
+  display: inline-block;
+}
+*/
+.list-inline {
+  display: inline-block;
+}
+.brand-links a{
+  color: white;
+  }
+
+.inline {
+  display:inline-block;
+  padding-left: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.padding {
+  padding: 40px;
+
+}
+
+.login {
+    background: url("/static/img/chicken_mountain_large.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.login-pg-text {
+  border-style: solid;
+  border-color: white;
+  background-color: white;
+  opacity: .8;
+  color: blue;
+  font-size: 150%;
+}

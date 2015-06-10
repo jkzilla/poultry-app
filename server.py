@@ -389,7 +389,7 @@ def logout():
 
 
 if __name__ == "__main__":
-	app.debug = True
+	app.debug = False
 
 	connect_to_db(app)
 

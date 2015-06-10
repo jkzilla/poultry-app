@@ -1,36 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ brand.brand_name }}</h1>
+ <h1>{{ brand.brand_name }}</h1>
 	{% if brand.parent_company %}
 	<h3>Parent company: {{ brand.parent_company }}</h3>
 	{% endif %}
+	<br>
+	<br>
 
-	<li><a href="{{ brand.brand_website }}"><span class="glyphicon glyphicon-home">{{ brand.brand_name}}</span></a></li>
-	{% if brand.brand_facebook %}
-	<li><a href="{{ brand.brand_facebook }}"><img src="static/img/facebook.svg"></a></li>
-	{% endif %}
-	<li><a href="{{ brand.brand_youtube }}"><img src="static/img/youtube.svg"</a></li>
+<div class="padding">
+	<ul class="list-inline brand-links">
+		<li><a href="{{ brand.brand_website }}"><img src="/static/img/brand_homepage.svg">Homepage</a></li>
 
-	<li><a href="{{ brand.brand_instagram }}"><img src="static/img/instagram.svg"></a></li>
-	<li><a href="{{ brand.brand_twitter }}"></a></li>
+		{% if brand.brand_facebook %}		
+		<li><a href="{{ brand.brand_facebook }}"><img src="/static/img/facebook.svg">Facebook</a></li>
+		{% endif %}
 
-	{% if brand.brand_pintrest %}
-	<li><a href="{{ brand.brand_pintrest }}"><img src="static/img/pintrest.svg"></a></li>
-	{% endif %}
+		<li><a href="{{ brand.brand_youtube }}"><img src="/static/img/youtube.svg">YouTube</a></li>
 
-	{% if brand.brand_google_plus %}
-	<li><a href="{{ brand.brand_google_plus }}"><img src="static/img/google_plus.svg"></a></li>
-	{% endif %}
+		<li><a href="{{ brand.brand_instagram }}"><img src="/static/img/instagram.svg">Instagram</a></li>
 
-</ul>
+		<li><a href="{{ brand.brand_twitter }}"><img src="/static/img/twitter.svg">Twitter</a></li>
+
+		{% if brand.brand_pintrest %}
+		<li><a href="{{ brand.brand_pintrest }}"><img src="/static/img/pintrest.svg">Pintrest</a></li>
+		{% endif %}
+
+		{% if brand.brand_google_plus %}
+		<li><a href="{{ brand.brand_google_plus }}"><img src="/static/img/google_plus.svg">Google+</a></li><br>
+		{% endif %}
+	</ul>
+</div>
 <form action="/product_approval" method="GET">
-
+<div class="btn-group">
 <br>
 <label>Did you purchase this product?</label><br>
-<input type="submit" name="yes" value="Yes">
-<input type="submit" name="no" value="No">
+<input class="btn btn-default" type="submit" name="yes" value="Yes">
+<input class="btn btn-default" type="submit" name="no" value="No">
 <br>
+</div>
 </form>
 
 

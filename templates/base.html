@@ -29,7 +29,7 @@
 					<a class="droptown-toggle" data-toggle="dropdown" href="#">
 					<span class="glyphicon glyphicon-user"></span>
 					</a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"  style:"background:None; border-style:dotted">			
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">			
 						<li style="text-align:center">
 							<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
 							<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
@@ -37,23 +37,23 @@
 						</li>
 
 						<li style="text-align:center">
-
 						<form action="/logout" method="GET">
 						<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
 						</form>
-						
 						</li>
+				
 					</ul>
-				</li>	
+				</li>
 				{% endif %}
 
-		</div>
 
 		</ul>
+		</div>
+
 	</nav>
 
 
-
+<div class="container">
     <ul>
         {% for message in get_flashed_messages() %}
             <li>{{ message | safe }}</li>
@@ -61,8 +61,9 @@
     </ul>
 
 	{% block content %}
-	stuff goes here
+	<!-- stuff goes here -->
 	{% endblock %}
+</div>
 
 	<!-- script references -->
 <script type="text/javascript">
