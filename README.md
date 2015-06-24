@@ -7,8 +7,8 @@ How does a giant like Walmart listen to your opinions on how your chicken is rai
 
 ##Getting started
 
-Clone this repo
-Install requirements.txt
-Run server.py and access the web app at localhost:5000/
-Register
-Have fun exploring your preferences and the poultry items Walmart has to offer!
+-[] Clone this repo
+-[] Install requirements.txt
+-[] Run server.py and access the web app at localhost:5000/
+-[] Register
+-[] Have fun exploring your preferences and the poultry items Walmart has to offer!
