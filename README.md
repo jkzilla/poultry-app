@@ -11,4 +11,4 @@ How does a giant like Walmart listen to your opinions on how your chicken is rai
 - [ ] Install requirements.txt
 - [ ] Run server.py and access the web app at localhost:5000/
 - [ ] Register
-- [ ] Have fun exploring your preferences and the poultry items Walmart has to offer!
+- [ ] Have fun exploring your preferences and the poultry items that Walmart has to offer!
