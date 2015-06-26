@@ -3,35 +3,90 @@
 
 <h1>Welcome, {{ user.name }}</h1>
 
-<h2>Your preferences:</h2>
-
-<!-- pretty representation of their preferences -->
-
-<ul>What are your preferences for:
-	<li><div>Halal</div>{{ user.halal }}</li>
-	<li><div>Free Range</div>{{ user.free_range }}</li>
-	<li><div>Slow Growth</div>{{ user.slow_growth }}</li>
-	<li><div>Pastured</div>{{ user.pastured }}</li>
-	<li><div>Non-GMO</div>{{ user.non_gmo }}</li>
-	<li><div>Antibiotics</div>{{ user.antibiotics }}</li>
-	<li><div>Organic</div>{{ user.organic_100 }}</li>
-	<li><div>Organic 95</div>{{ user.organic_95 }}</li>
-	<li><div>Price</div>{{ user.price }}</li>
-	<li><div>Preference 1</div>{{ user.preference1 }}</li>
-	<li><div>Preference 2</div>{{ user.preference2 }}</li>
-	<li><div>Preference 3</div>{{ user.preference3 }}</li>
-	<li><div>Preference 4</div>{{ user.preference4 }}</li>
-	<li><div>Preference 5</div>{{ user.preference5 }}</li>
-	<li><div>Preference 6</div>{{ user.preference6 }}</li>
-	<li><div>Preference 7</div>{{ user.preference7 }}</li>
-	<li><div>Preference 8</div>{{ user.preference8 }}</li>
-	<li><div>Preference 9</div>{{ user.preference9 }}</li>
-	<li><div>Preference 10</div>{{ user.preference10 }}</li>
-</ul>
 
 
+<h4>Your preferences:</h4>
 
+
+<table class="table table-striped">
+	<tr>
+		<td>Halal</td>
+		<td>{{ user.halal }}</td>
+	</tr>
+	<tr>
+		<td>Free Range</td>
+		<td>{{ user.free_range }}</td>
+	</tr>
+	<tr>
+		<td>Slow Growth</td>
+		<td>{{ user.slow_growth }}</td>
+	</tr>
+	<tr>
+		<td>Pastured</td>
+		<td>{{ user.pastured }}</td>
+	</tr>
+	<tr>
+		<td>Non-GMO</td>
+		<td>{{ user.non_gmo }}</td>
+	</tr>
+	<tr>
+		<td>Antibiotics</td>
+		<td>{{ user.antibiotics }}</td>
+	</tr>
+	<tr>
+		<td>Organic</td>
+		<td>{{ user.organic_100 }}</td>
+	</tr>
+	<tr>
+		<td>Organic 95</td>
+		<td>{{ user.organic_95 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 1</td>
+		<td>{{ user.preference1 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 2</td>
+		<td>{{ user.preference2 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 3</td>
+		<td>{{ user.preference3 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 4</td>
+		<td>{{ user.preference4 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 5</td>
+		<td>{{ user.preference5 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 6</td>
+		<td>{{ user.preference6 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 7</td>
+		<td>{{ user.preference7 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 8</td>
+		<td>{{ user.preference8 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 9</td>
+		<td>{{ user.preference9 }}</td>
+	</tr>
+	<tr>
+		<td>Preference 10</td>
+		<td>{{ user.preference10 }}</td>
+	</tr>	
+</table>
+
+<h4>Recent Search Activity</h4>
 <canvas id="myChart" width="750" height="auto"></canvas>
+
+
 
 <script>
 	var ctx = document.getElementById("myChart").getContext("2d");

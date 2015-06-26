@@ -2,11 +2,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>This is the registration page</h1>
+<h1>Register</h1>
 
 <form action="/submitregistrationtodb" method="POST">
-
-<label>Register</label><br>
+<div class="form-group">
 	<label>First Name</label><br>
 	<input type="text" name="firstname"><br>
 
@@ -58,6 +57,7 @@
 	<input type="radio" name="price" value="3">No <br>	
 
  	<input type="submit" class="btn btn-primary btn-lg" value="Log in">
+ </div>
 </form>
 
 {% endblock %}

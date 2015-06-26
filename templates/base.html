@@ -54,11 +54,6 @@
 
 
 <div class="container">
-    <ul>
-        {% for message in get_flashed_messages() %}
-            <li>{{ message | safe }}</li>
-        {% endfor %}
-    </ul>
 
 	{% block content %}
 	<!-- stuff goes here -->
