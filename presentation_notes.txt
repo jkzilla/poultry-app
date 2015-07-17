@@ -1,0 +1,20 @@
+1. debug = False
+2. Accounts:
+	Carol's
+		email: carol@gmail.com
+		pw: carol
+	Stewart's
+		email: stewart@gmail.com	
+		pw: stewart
+	Jen's
+		email: jen@gmail.com
+		pw: jen
+	Tori's
+		email: tori@gmail.com	
+		pw: torey
+	Ms. Leinhart's
+		email: leinhart@gmail.com
+		pw: msleinhart
+	George
+		email: george@gmail.com	
+		pw: george

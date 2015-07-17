@@ -68,6 +68,8 @@ def send_to_dashboard():
 	"""Sends user to dashboard"""
 	# purchased and conventional
 	purchase_activity_conv = db.session.query(PurchaseActivity).filter_by(purchased=True, conventional=True).all()
+	purchase_id = purchase_activity_conv.purchase_id
+	
 	# purchased and organic
 	purchase_activity_organic = db.session.query(PurchaseActivity).filter_by(purchased=True, organic=True).all()
 	# search activity 
@@ -114,6 +116,13 @@ def post_reg_info_to_db():
 	organic_95 = request.form.get("organic_95")
 	price = request.form.get("price")
 
+	if price == 1:
+		price = lowest
+	if price == 2:
+		price = depends
+	if price == 3:
+		price = luxury
+
 	user_table_values = User(name=name, email=email, password=password, gender=gender, halal=halal, free_range=free_range, slow_growth=slow_growth, pastured=pastured, non_gmo=non_gmo, antibiotics=antibiotics, organic_100=organic_100, organic_95=organic_95, price=price)
 	db.session.add(user_table_values)
 
@@ -123,7 +132,6 @@ def post_reg_info_to_db():
 	session["user_id"] = user_table_values.user_id
 	
 	if user_table_values:
-		flash("You are now logged in")
 		return render_template("/nowsearch.html", user=user_table_values)
 
 @app.route('/getresults', methods=['GET'])
@@ -223,13 +231,13 @@ def lookup_api(item_id):
 
 	conventional_farm_info = []
 	title = soup.find('span', id="Meat-producing_chickens_-_husbandry_systems").parent
-	print title
+	# print title
 	title_conv = title.text.rstrip("[edit]")
 	conventional_farm_info.append(title_conv)
 	nextNode = title
 	while True:
 		nextNode = nextNode.next_sibling
-		print nextNode
+		# print nextNode
 		try:
 			tag_name = nextNode.name
 		except AttributeError:

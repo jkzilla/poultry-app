@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-
- <h1>{{ brand.brand_name }}</h1>
+<div class='row'>
+ <h1 class="center">{{ brand.brand_name }}</h1>
 	{% if brand.parent_company %}
 	<h3>Parent company: {{ brand.parent_company }}</h3>
 	{% endif %}
 	<br>
 	<br>
-
-<div class="padding">
+<h4 class="center">Communicate</h4>
+<div class="padding center">
 	<ul class="list-inline brand-links">
 		<li><a href="{{ brand.brand_website }}"><img src="/static/img/brand_homepage.svg">Homepage</a></li>
 
@@ -31,20 +31,30 @@
 		{% endif %}
 	</ul>
 </div>
-<form action="/product_approval" method="GET">
-<div class="btn-group">
-<br>
-<label>Did you purchase this product?</label><br>
-<input class="btn btn-default" type="submit" name="yes" value="Yes">
-<input class="btn btn-default" type="submit" name="no" value="No">
-<br>
 </div>
-</form>
+<div class="row">
+	<div class="col-md-6">				
+
+		<img id="brand-image" src="/static/img/chipotle_chicken.jpg">
+	</div>
+	<div class="col-md-6">
+		<form action="/product_approval" method="GET">
+			<div class="btn-group">
+			<br>
+			<label>Did you purchase this product?</label><br/><br/>
+			<input class="btn btn-default" type="submit" name="yes" value="Yes">
+			<input class="btn btn-default" type="submit" name="no" value="No">
+			<br>
+			</div>
+		</form>		
+	</div>
+
+</div>
+<br/><br/><br/>
 
 
 {% if brand.brand_conventional %}
-<h2> Conventional </h2>
-<h3>{{ conventional_farm_info[0] }}</h3><br/><br/>
+<h2>{{ conventional_farm_info[0] }}</h2><br/><br/>
 <p>{{ conventional_farm_info[1] }}</p>
 <p>{{ conventional_farm_info[2] }}</p>
 <p>{{ conventional_farm_info[3] }}</p>
@@ -56,7 +66,7 @@
 
 {% if brand.brand_organic %}
 <h2>Organic</h2>
-{{ organic_farm_info }}
+{{ organic_farm_info }}<br/><br/>
 {% endif %}
 
 {% if brand.brand_free_range %}
@@ -71,5 +81,9 @@
 
 {% endif %}
 
+<br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
 
 {% endblock %}

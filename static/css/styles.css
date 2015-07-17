@@ -28,8 +28,11 @@
 
 }
 
+.center {
+  text-align: center;
+}
 .login {
-    background: url("/static/img/chicken_mountain_large.jpg") no-repeat center center fixed; 
+  background: url("/static/img/chicken_mountain_large.jpg") no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -53,4 +56,13 @@
   padding: 10px;
   max-width: 300px;
   max-height: 250px;
+}
+
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+
+#brand-image {
+  max-height: 200px;
+  display: inline-block;
 }

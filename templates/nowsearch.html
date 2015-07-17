@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+<body class="login">
 
 
-<h3>Hello, {{ user.name }}</h3>
-<h4>Search for the Walmart poultry product that you are interested in:</h4>
+<h3 class="login-pg-registration-text">Hello, {{ user.name }}</h3>
+<h4 class="login-pg-registration-text">Search for the Walmart poultry product that you are interested in:</h4>
 
-</form>
-<form action="/getresults" method="GET">
+<form class="form-inline" action="/getresults" method="GET">
+<div class="form-group">
 <br>
 <br>
 <label>Search</label><br>
-<input type="text" name="search">
-<input type="submit">
+<input type="text" name="search" class="form-control" id="exampleInputAmount" placeholder="Chicken thighs">
+<input class="btn btn-default" type="submit">
+</div>
 </form>
 
+</body>
 
 {% endblock %}
