@@ -13,6 +13,8 @@ from random import shuffle
 from sqlalchemy import func
 from bs4 import BeautifulSoup
 import urllib2
+from secrets import secrets_account, secrets_token
+from twilio.rest import TwilioRestClient
 
 app = Flask(__name__)
 
@@ -20,10 +22,20 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
-@app.route('/')
+@app.route('/'), methods=['POST'])
 def index():
-	"""Homepage."""
-	print session
+	"""Homepage."""	
+	secrets_account = secrets_account()
+	secrets_token = secrets_token()
+
+	client = TwilioRestClient(secrets_account, secrets_token)
+
+	poultry_watch_phone = "+123456789"
+	user_phone = request.form.get("phone")
+	message = request.form.get("message")
+
+	message = client.messages.create(to="%d", from_="%d",
+                                 body="%r") % (poultry_watch_phone, user_phone, message)
 	return render_template("index.html")
 
 @app.route('/login', methods=['POST'])
