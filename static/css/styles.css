@@ -29,11 +29,11 @@
 }
 
 .login {
-    background: url("/static/img/chicken_mountain_large.jpg") no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url("/static/img/blog 2048274-93649-vector-silhouette-of-the-cock-on-white-background.jpg") no-repeat center center fixed; 
+  -webkit-background-size: center;
+  -moz-background-size: center;
+  -o-background-size: center;
+  background-size: center;
 }
 
 .login-pg-text {
@@ -44,13 +44,16 @@
   color: blue;
   font-size: 150%;
   padding: 10px;
+  
 }
 
 .login-pg-registration-text {
-  background-color: white;
-  opacity: .7;
+  background-color: blue;
+  opacity: .8;
   color: black;
   padding: 10px;
   max-width: 300px;
   max-height: 250px;
+  border: 2px solid;
+  border-radius: 15px;
 }

@@ -15,3 +15,4 @@ def seed_brand_info():
 
 
 	for dict_item in brand_name_list:
+]
