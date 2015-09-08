@@ -48,7 +48,7 @@
 }
 
 .login-pg-registration-text {
-  background-color: blue;
+  background-color: #99CCFF;
   opacity: .8;
   color: black;
   padding: 10px;
@@ -56,4 +56,8 @@
   max-height: 250px;
   border: 2px solid;
   border-radius: 15px;
+}
+
+ul#preferences {
+  list-style-type: none;
 }
