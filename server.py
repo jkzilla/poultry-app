@@ -36,7 +36,7 @@ def login():
 	if user:
 		session["user_id"] = user.user_id
 		# print user.user_id
-		flash("You are now logged in")
+		flash("Welcome, %s" % user.name)
 		
 
 		return render_template("/nowsearch.html", user=user) 
@@ -123,7 +123,8 @@ def post_reg_info_to_db():
 	session["user_id"] = user_table_values.user_id
 	
 	if user_table_values:
-		flash("You are now logged in")
+		print name
+		flash("Welcome, %s" % (name)) 
 		return render_template("/nowsearch.html", user=user_table_values)
 
 @app.route('/getresults', methods=['GET'])

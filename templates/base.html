@@ -55,9 +55,7 @@
 <div class="container">
     <ul id="flash">
         {% for message in get_flashed_messages() %}
-        <div class="alert alert-warning">
             <li>{{ message | safe }}</li>
-        </div>
         {% endfor %}
     </ul>
 
