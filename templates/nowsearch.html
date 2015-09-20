@@ -2,16 +2,16 @@
 {% block content %}
 
 
-<h4>Search for the Walmart poultry product that you are interested in:</h4>
-
-</form>
-<form action="/getresults" method="GET">
-<br>
-<br>
-<label>Search</label><br>
-<input type="text" name="search">
-<input type="submit">
-</form>
-
+<div class="container-fluid">
+	<div class="col-lg-6">
+		<form action="/getresults" method="GET" class="form-inline">
+			<label>
+				<h4>Search for the Walmart poultry product that you are interested in:</h4>
+			</label>
+		<input type="text" name="search">
+		<input type="submit">
+		</form>
+	</div>
+</div>
 
 {% endblock %}
