@@ -133,7 +133,7 @@ def show_results():
 
 	user_query = request.args.get("search")
 	# user = session.get("name")
-	# print user_query
+	print user_query
 	search_activity = SearchActivity(user_id=session.get('user_id'), search_query=user_query, datetime = datetime.now())
 
 	db.session.add(search_activity)
@@ -389,7 +389,7 @@ def logout():
 
 
 if __name__ == "__main__":
-	app.debug = False
+	app.debug = True
 
 	connect_to_db(app)
 
