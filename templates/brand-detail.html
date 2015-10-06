@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-
- <h1>{{ brand.brand_name }}</h1>
-	{% if brand.parent_company %}
-	<h3>Parent company: {{ brand.parent_company }}</h3>
-	{% endif %}
-	<br>
-	<br>
-
+<div class="row">
+	 <div class="col-md-7 col-md-offset-5">
+		 <h1>{{ brand.brand_name }}</h1>
+			{% if brand.parent_company %}
+			<h3>Parent company: {{ brand.parent_company }}</h3>
+			{% endif %}
+			<br>
+			<br>
+	</div>
+</div>
 <div class="padding">
+<div class="row">
+	 <div class="col-md-9 col-md-offset-3">
+
 	<ul class="list-inline brand-links">
 		<li><a href="{{ brand.brand_website }}"><img src="/static/img/brand_homepage.svg">Homepage</a></li>
 
@@ -30,6 +35,7 @@
 		<li><a href="{{ brand.brand_google_plus }}"><img src="/static/img/google_plus.svg">Google+</a></li><br>
 		{% endif %}
 	</ul>
+	</div>
 </div>
 <form action="/product_approval" method="GET">
 <div class="btn-group">

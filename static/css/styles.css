@@ -67,3 +67,13 @@ ul#flash {
   max-width: 80%;
   text-align: center;
   }
+
+div#search_form {
+  margin:400px 0px; 
+  padding:0px;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: none;
+}

@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-<div class="container-fluid">
-	<div class="col-lg-6">
-		<form action="/getresults" method="GET" class="form-inline">
-			<label>
-				<h4>Search for the Walmart poultry product that you are interested in:</h4>
-			</label>
-		<input type="text" name="search">
-		<input type="submit">
+<div class="col-md-6">
+	<form action="/getresults" method="get">
+	<label>
+	<h4>Search for the Walmart poultry product that you are interested in:</h4>
+	</label>
+			<input type="text" name="search">
+			<input type="submit">
 		</form>
 	</div>
 </div>

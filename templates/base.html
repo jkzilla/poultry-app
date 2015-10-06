@@ -1,82 +1,75 @@
 
 <html lang="en">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title>Poultry Watch</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-	<link href="/static/css/styles.css" rel="stylesheet">
-	<link href="/static/css/normalize.css" rel="stylesheet">
- 
-	<!-- This is link to jquery -->
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.js"></script>
-</head>
-<body>
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
-		<ul class="nav nav-pills list-inline">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<!--Bootstrap  -->
+		<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+		<!-- Custom CSS -->
+		<link href="/static/css/styles.css" rel="stylesheet">
+		<!-- Normalize CSS -->
+		<link href="/static/css/normalize.css" rel="stylesheet">
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<ul class="nav nav-pills list-inline">
+					<li>
+						<a href="{{ url_for('go_to_search') }}" class="active">Poultry Watch</a>
+					</li>
+					<li>
+						<a href="{{ url_for('go_to_dashboard') }}" class="active">Dashboard</a>
+					</li>
 
-				<li><a href="{{ url_for('go_to_search') }}" class="active">Poultry Watch</a></li>
-		
-				<li><a href="{{ url_for('go_to_dashboard') }}" class="active">Dashboard</a></li>
-				
+					{% if 'user_id' in session %}
+					<li class="dropdown">
+						<a class="droptown-toggle" data-toggle="dropdown" href="#">
+							<span class="glyphicon glyphicon-user"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">			
+							<li style="text-align:center">
+								<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
+									<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
+								</form>
+							</li>
+							<li style="text-align:center">
+								<form action="/logout" method="GET">
+									<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
+								</form>
+							</li>
+						</ul>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
 
-				{% if 'user_id' in session %}
-				<li class="dropdown">
-					<a class="droptown-toggle" data-toggle="dropdown" href="#">
-					<span class="glyphicon glyphicon-user"></span>
-					</a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">			
-						<li style="text-align:center">
-							<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
-							<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
-							</form>
-						</li>
+		<div class="container">
+		    <ul id="flash">
+		        {% for message in get_flashed_messages() %}
+		            <li>{{ message | safe }}</li>
+		        {% endfor %}
+		    </ul>
 
-						<li style="text-align:center">
-						<form action="/logout" method="GET">
-						<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
-						</form>
-						</li>
-				
-					</ul>
-				</li>
-				{% endif %}
-
-
-		</ul>
+			{% block content %}
+			<!--content-->
+			{% endblock %}
 		</div>
 
-	</nav>
+		<script type="text/javascript">	
+			$(document).ready(function() {
+	    		$('dropdown-toggle').dropdown()
+			});
+		</script>
 
-
-<div class="container">
-    <ul id="flash">
-        {% for message in get_flashed_messages() %}
-            <li>{{ message | safe }}</li>
-        {% endfor %}
-    </ul>
-
-	{% block content %}
-	<!-- stuff goes here -->
-	{% endblock %}
-</div>
-
-	<!-- script references -->
-<script type="text/javascript">
-$(document).ready(function() {
-    $('dropdown-toggle').dropdown()
-});
-</script>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		
-		<script src="../static/js/bootstrap.min.js"></script>
-
-		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>	
+		<script src="../static/js/bootstrap.min.js"></script>	
 		<script src="../static/js/scripts.js"></script>
-</div>
-</body>
+		<!--JQuery -->
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<!-- Chart JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.js"></script>
 
+	</body>
 </html>
