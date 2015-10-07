@@ -31,14 +31,14 @@ class Taxonomy(db.Model):
 
 
 	def __repr__(self):
-		"""This is a helpful representation"""
+		"""This is a helpful representation."""
 		return "<Taxonomy category_node=%s name=%s>" % (self.category_node, self.name)  
 
 	# if children:
 		# import values
 
 class User(db.Model):
-	"""This is our fake user database"""
+	"""This is our user database."""
 
 	__tablename__ = "users"
 
@@ -72,6 +72,7 @@ class User(db.Model):
 	def __repr__(self):
 		"""This is a helpful representation"""
 		return "<User name=%s email=%s>" % (self.name, self.email)
+
 class Brand(db.Model):
 	"""This the brand database for Walmart products in the category of Food: """
 
@@ -126,13 +127,32 @@ class PurchaseActivity(db.Model):
 # 	activity_key = 
 # 	user_id = db
 
+class Product(db.Model):
+	"""Our database of Walmart products that our users have scored and rated."""
 
+	__tablename__ = "products"
 
+	product_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	# product_info =
 
+class Rating(db.Model):
+	"""Rating on individual chicken products that are associated with a Brand 
+	in the Brand table."""
 
+	__tablename__ = "rating"
 
+	rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	movie_id = db.Column(db.Integer, db.ForeignKey('brands.brand_id'))
+	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+	score = db.Column(db.Integer)
 
+	user = db.relationship("User", backref="ratings")
 
+	brand = db.relationship("Brand", backref=db.backref("ratings", order_by=rating_id))
+
+	def __repr__(self):
+		"""This is a helpful representation."""
+		return "<Rating rating_id=%s product_id=%s user_id=%s score=%s" % (self.rating_id, self.product_id, self.user_id, self.score)
 
 
 ##############################################################################
