@@ -382,6 +382,7 @@ def go_to_user_profile(user_id):
 	print list_of_dict 	
 
 	return render_template("user_profile.html", user=user, data=data)
+
 @app.route('/logout')
 def logout():
 	del session['user_id']
