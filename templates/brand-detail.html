@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="row">
 	 <div class="col-md-7 col-md-offset-5">
+
 		 <h1>{{ brand.brand_name }}</h1>
 			{% if brand.parent_company %}
 			<h3>Parent company: {{ brand.parent_company }}</h3>
 			{% endif %}
 			<br>
 			<br>
+
 	</div>
 </div>
+
+<div class="row">
+	<div class="item-selected">
+	<!-- present selected item information from search results -->
+	</div>
+</div>
+
+
 <div class="padding">
 <div class="row">
 	 <div class="col-md-9 col-md-offset-3">
