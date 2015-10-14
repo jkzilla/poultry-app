@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="recommended-for-you">
-<div class="food-items">
-<!-- List of recommended food items based on recommendation algorithm -->
-</div>
-<div class="poultry-farms">
-</div>
-</div>
-<div class="col-md-6">
-	<form action="/getresults" method="get">
-	<label>
-	<h4>Search for the Walmart poultry product that you are interested in:</h4>
-	<div class="filter-by">
+
+<div class="filter-by">
 	<!-- Filter by organic or non organic -->
+</div>
+
+<div class="center">
+	<form action="/getresults" method="get">
+			<input type="text" name="search" class="typeahead" id="search-box" placeholder="chicken thighs">
+			<button class="btn" type="submit">Find Item!</button>
+	</form>
+</div>
+
+<div class="recommended-for-you">
+
+	<div class="food-items">
+	<!-- List of recommended food items based on recommendation algorithm -->
 	</div>
-	</label>
-			<input type="text" name="search">
-			<input type="submit">
-		</form>
+	<div class="poultry-farms">
+	<!-- List of recommended farms based on recommendation algorithm -->
 	</div>
+
 </div>
 
 {% endblock %}

@@ -48,7 +48,9 @@
 		<div class="container">
 		    <ul id="flash">
 		        {% for message in get_flashed_messages() %}
-		            <li>{{ message | safe }}</li>
+		            <h4>
+		            	<li>{{ message | safe }}</li>
+		            </h4>
 		        {% endfor %}
 		    </ul>
 

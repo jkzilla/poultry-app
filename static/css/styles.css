@@ -77,3 +77,14 @@ div#search_form {
 a:hover {
   text-decoration: none;
 }
+
+.center {
+  margin: 0 auto;
+  padding-top: 10%;
+  padding-left: 25%;
+}
+
+#search-box {
+  width: 42%;
+  height: 5%;
+}

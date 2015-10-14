@@ -188,7 +188,7 @@ def lookup_api(item_id):
 	session["item_id"] = item_id
 
 	product_info = product_wm_api.json()
-
+	print product_info
 	# returns brandName of product info in json object
 	item_brand = product_info['brandName']
 
