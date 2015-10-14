@@ -4,7 +4,7 @@
 
 ##Overview
 
-How does a giant like Walmart listen to your opinions on how your chicken is raised? How do they satisfy all of their customers when we are clearly unique, special snowflakes, and we all have our own preferences? How do they adjust in order to communicate their values to their unique consumer? Enter Poultry Watch.
+How does a giant like Walmart listen to your opinions on how your chicken is raised? How do they satisfy all of their customers when we are unique snowflakes, and we all have our own preferences? How do they adjust in order to communicate their values to their unique consumer? Enter Poultry Watch.
 
 ##Search for your item
 
