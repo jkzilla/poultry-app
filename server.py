@@ -133,32 +133,16 @@ def show_results():
 	"""This shows the results of search on search page. Working here May 31th. """
 
 	user_query = request.args.get("search")
-	# user = session.get("name")
-	print user_query
 	search_activity = SearchActivity(user_id=session.get('user_id'), search_query=user_query, datetime = datetime.now())
 
 	db.session.add(search_activity)
 	db.session.commit()
-	# print search_activity.query_id
-	# print search_activity.search_query
 	search_items_not_filtered_list = user_search(user_query)
 	found_items = []
 	
-	# name = item_stuff_dict[item[u'name']]
-	# print item_stuff_dict
 	for item in search_items_not_filtered_list:
-		# search_items_not_filtered_list is a list of dicts 
-		# print type(item) ==> this is dict
-		# print type(search_items_not_filtered_list) this is a list
-		# print item[u'categoryNode']
-		# print item[u'categoryNode'] => this prints a categoryNode in the terminal
 		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
-		# print Taxonomy_obj 
-		# this is a list 
 		for obj in Taxonomy_obj:
-			# print item[u'categoryNode'] => this prints category nodes such as 976759_976796_1001442, for canned chicken search this returned 9
-			# print obj
-			# print item[u'thumbnailImage']
 			if item[u'categoryNode'] == obj.category_node:
 	
 				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 

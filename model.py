@@ -133,13 +133,14 @@ class Product(db.Model):
 	__tablename__ = "products"
 
 	product_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	
 	# product_info =
 
 class Rating(db.Model):
 	"""Rating on individual chicken products that are associated with a Brand 
 	in the Brand table."""
 
-	__tablename__ = "rating"
+	__tablename__ = "ratings"
 
 	rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	movie_id = db.Column(db.Integer, db.ForeignKey('brands.brand_id'))
