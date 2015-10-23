@@ -143,24 +143,17 @@ def show_results():
 	for item in search_items_not_filtered_list:
 		Taxonomy_obj = db.session.query(Taxonomy).filter(Taxonomy.path.like("%Food%")).filter_by(category_node=item[u'categoryNode']).all()
 		for obj in Taxonomy_obj:
-			if item[u'categoryNode'] == obj.category_node:
-	
-				# here i am trying to assign name, category, sale_price, description, customer_rating_img to 
-				# item_stuff_dict[item[u'name']] but i need to assigned to item_stuff_dict not item_stuff_dict[item[u'name']]
+			if item[u'categoryNode'] == obj.category_node:	
 				found_items.append({
 					"name": item.get(u'name', ""), 
 					"item_id": item.get(u'itemId', ""),
 					"category": item.get(u'categoryPath', ""), 
 					"sale_price": format(item.get(u'salePrice', ""), ".2f"), 
 					"description": unescape(item.get(u'shortDescription', "")), 
-					# when I run server.py I receive a KeyError: u'ShortDescription'
 					"customer_rating_img": item.get(u'customerRatingImage', ""),
 					"thumbnail_image": item.get(u'thumbnailImage', "")
 					})
-
-	# print found	
-	# [(2.50, 'green', 'dsd sdsd'), (3.50, 'red', '34343')]
-	# [{'price': 2.50, 'color': 'red'}]			
+				
 	return render_template("searchresults.html", found_items=found_items)
 
 @app.route('/brand-detail/<item_id>', methods=['GET'])
