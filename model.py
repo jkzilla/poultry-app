@@ -121,13 +121,6 @@ class PurchaseActivity(db.Model):
 
 	user = db.relationship("User", backref=db.backref("purchases"))
 
-# class Activity(db.Model):
-	
-# 	__tablename__ = "activities"
-
-# 	activity_key = 
-# 	user_id = db
-
 class Product(db.Model):
 	"""Our database of Walmart products that our users have scored and rated."""
 
