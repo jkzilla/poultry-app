@@ -128,6 +128,8 @@ class Product(db.Model):
 
 	product_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	item_id = db.Column(db.Integer, db.ForeignKey('purchases.item_id'))
+	category = db.Column(db.String)
+	sale_price = db.Column(db.Integer)
 
 class Rating(db.Model):
 	"""Rating on individual chicken products that are associated with a Brand 
@@ -139,7 +141,7 @@ class Rating(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 	product_id = db.Column(db.Integer, db.ForeignKey('products.product_id'))
 	brand_id = db.Column(db.Integer, db.ForeignKey('brands.brand_id'))
-	score = db.Column(db.Integer)
+	user_score = db.Column(db.Integer, nullable=True)
 
 	user = db.relationship("User", backref="ratings")
 

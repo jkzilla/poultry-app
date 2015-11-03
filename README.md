@@ -20,7 +20,7 @@ Users will be able to:
 
 Rate
 Review 
-Vote
+Vote (upvote/downvote)
 Clicks
 Purchases
 Following

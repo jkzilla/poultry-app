@@ -156,13 +156,13 @@ def show_results():
 				
 	return render_template("searchresults.html", found_items=found_items)
 
-@app.route('/brand-detail/<item_id>', methods=['GET'])
+@app.route('/brand-detail/<item>', methods=['GET'])
 def lookup_api(item_id):
 
 	# # passes item id to lookup api
 	product_wm_api = requests.get('http://api.walmartlabs.com/v1/items/' + item_id + '?format=json&apiKey=qb5mmbrawdsnnr74yqc6sn8q')
-
-	session["item_id"] = item_id
+	print item
+	# session["item_id"] = item
 
 	product_info = product_wm_api.json()
 	print product_info
