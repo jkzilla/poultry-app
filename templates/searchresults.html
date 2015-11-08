@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<ul class="nav nav-pills list-inline">
+					<li>
+						<a href="{{ url_for('go_to_search') }}" class="active">Poultry Watch</a>
+					</li>
+					<li>
+						<a href="{{ url_for('go_to_dashboard') }}" class="active">Dashboard</a>
+					</li>
+
+					{% if 'user_id' in session %}
+					<li class="dropdown">
+						<a class="droptown-toggle" data-toggle="dropdown" href="#">
+							<span class="glyphicon glyphicon-user"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">			
+							<li style="text-align:center">
+								<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
+									<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
+								</form>
+							</li>
+							<li style="text-align:center">
+								<form action="/logout" method="GET">
+									<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
+								</form>
+							</li>
+						</ul>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
 
 <h3>Search Results</h3>
 {% for item in found_items %}
 
-			<a href="/brand-detail/{{ item['item_id'] }}" action="/brand-detail">
+			<a href="/brand-detail/{{ item }}" action="/brand-detail">
 				<li><div class="panel panel-default">
 					<div class="panel-body">
 						
@@ -24,4 +56,5 @@
 		
 </ul>
 
+<script
 {% endblock %}

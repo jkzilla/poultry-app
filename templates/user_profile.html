@@ -1,5 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<ul class="nav nav-pills list-inline">
+					<li>
+						<a href="{{ url_for('go_to_search') }}" class="active">Poultry Watch</a>
+					</li>
+					<li>
+						<a href="{{ url_for('go_to_dashboard') }}" class="active">Dashboard</a>
+					</li>
+
+					{% if 'user_id' in session %}
+					<li class="dropdown">
+						<a class="droptown-toggle" data-toggle="dropdown" href="#">
+							<span class="glyphicon glyphicon-user"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">			
+							<li style="text-align:center">
+								<form action="/user_profile/{{session.get('user_id')}}"  method="GET">
+									<input type="submit" class="btn btn-primary btn-sm" value="Your Account">
+								</form>
+							</li>
+							<li style="text-align:center">
+								<form action="/logout" method="GET">
+									<input type="submit" class="btn btn-primary btn-sm" value="Log Out">
+								</form>
+							</li>
+						</ul>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
 
 <h1>Welcome, {{ user.name }}</h1>
 

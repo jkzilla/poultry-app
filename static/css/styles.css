@@ -29,26 +29,26 @@
 }
 
 .login {
-    background: url("/static/img/blog 2048274-93649-vector-silhouette-of-the-cock-on-white-background.jpg") no-repeat center center fixed; 
+    background: url("/static/img/unsplash_image.jpg") no-repeat center center fixed; 
   -webkit-background-size: center;
   -moz-background-size: center;
   -o-background-size: center;
-  background-size: center;
+  background-size: cover;
 }
 
-.login-pg-text {
-  border-style: solid;
-  border-color: white;
-  background-color: white;
-  opacity: .8;
-  color: blue;
-  font-size: 150%;
-  padding: 10px;
-  
+#title {
+  color: white;
+  font-size: 500%;
+  font-weight: bolder;
+  padding: 0;
+  max-width: 50%;
+  text-align: center;
+  background-color: gray;
+  margin: 0 auto;
 }
 
 .login-pg-registration-text {
-  background-color: #99CCFF;
+  background-color: white;
   opacity: .8;
   color: black;
   padding: 10px;

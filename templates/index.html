@@ -1,34 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 <body class="login">
-<div class="container-fluid">
+	<div class="container-fluid">
+	87
+		<h1 id="title">Poultry Watch</h1>
 
-	<div class="row padding">
-
-		<div class="col-md-4">	
-	
-		<p class="login-pg-text">A communication platform between consumers, their local Walmart, and farms.<br/><br/>
-		We help grocery and farms understand the consumers they provide for.</p>
-		</div>
-		<div class="col-md-4">
-		</div>
+		<div class="row padding">
+			<div class="col-md-6">	
+				<p class="login-pg-text">A consumer guide for poultry products at Walmart. Connect with the poultry farms that you buy from.</p>
+			</div>
 		
-		<div class="col-md-4 login-pg-registration-text">
-		<form action="/login" method="POST">
-			<div class="form-group">
-			<label>Sign in</label><br>
-			</div>
-			<div class="form-group">
-			<label>Email</label><br>
-			<input type="text" name="email"><br>
-			</div>
-			<div class="form-group">
-			<label>Password</label><br>
-			<input type="password" name="password"><br>
-			</div>
-			<input	type="submit" name="Sign in"><br>
-
-		</form>
+		<div class="col-md-6 login-pg-registration-text">
+			<form action="/login" method="POST">
+				<div class="form-group">
+					<label>Sign in</label><br>
+				</div>
+				<div class="form-group">
+					<label>Email</label><br>
+					<input type="text" name="email"><br>
+				</div>
+				<div class="form-group">
+					<label>Password</label><br>
+					<input type="password" name="password"><br>
+				</div>
+					<input	type="submit" class="btn" name="Sign in"><br>
+			</form>
 
 
 		<form action="/register" method="GET">
